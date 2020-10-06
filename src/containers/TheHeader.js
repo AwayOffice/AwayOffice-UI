@@ -38,7 +38,7 @@ const TheHeader = () => {
   }
 
   return (
-    <CHeader withSubheader>
+    <CHeader class="c-header c-header-dark bg-navy px-3" withSubheader>
       <CToggler
         inHeader
         className="ml-md-3 d-lg-none"
@@ -46,7 +46,7 @@ const TheHeader = () => {
       />
       <CToggler
         inHeader
-        className="ml-3 d-md-down-none"
+        className="ml-3 d-md-down-none bg-navy"
         onClick={toggleSidebar}
       />
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
@@ -59,11 +59,11 @@ const TheHeader = () => {
         </CHeaderNavItem>
       </CHeaderNav>
 
-      <CHeaderNav className="px-3">
+      {/* <CHeaderNav className="px-3">
         <TheHeaderDropdown/>
-      </CHeaderNav>
+      </CHeaderNav> */}
 
-      <CSubheader className="px-3 justify-content-between">
+      <CSubheader className="px-5 justify-content-between">
         <CBreadcrumbRouter 
           className="border-0 c-subheader-nav m-0 px-0 px-md-3" 
           routes={routes} 
