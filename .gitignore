@@ -19,6 +19,7 @@
 /src/coreui-charts
 
 # misc
+.env
 .DS_Store
 .idea
 .env.local
