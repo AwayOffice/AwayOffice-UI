@@ -49,9 +49,9 @@ const TheHeader = () => {
         className="ml-3 d-md-down-none bg-navy"
         onClick={toggleSidebar}
       />
-      <CHeaderBrand className="mx-auto d-lg-none" to="/">
+      {/* <CHeaderBrand className="mx-auto d-lg-none" to="/">
         <CIcon name="logo" height="48" alt="Logo"/>
-      </CHeaderBrand>
+      </CHeaderBrand> */}
 
       <CHeaderNav className="d-md-down-none mr-auto">
         <CHeaderNavItem className="px-3" >
@@ -69,7 +69,7 @@ const TheHeader = () => {
           routes={routes} 
         />
           <div className="d-md-down-none mfe-2 c-subheader-nav">
-            <CLink className="c-subheader-nav-link"href="#">
+            {/* <CLink className="c-subheader-nav-link"href="#">
               <CIcon name="cil-speech" alt="Settings" />
             </CLink>
             <CLink 
@@ -81,7 +81,7 @@ const TheHeader = () => {
             </CLink>
             <CLink className="c-subheader-nav-link" href="#">
               <CIcon name="cil-settings" alt="Settings" />&nbsp;Settings
-            </CLink>
+            </CLink> */}
           </div>
       </CSubheader>
     </CHeader>

@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './EmployeeList.css'
 import {
     CBadge,
     CCard,
@@ -17,10 +18,10 @@ import * as All from '@fortawesome/free-solid-svg-icons'
 
 const getBadge = status => {
     switch (status) {
-        case 'Active': return 'success'
-        case 'Inactive': return 'secondary'
-        case 'Pending': return 'warning'
-        case 'Banned': return 'danger'
+        case 'Active': return 'primary'
+        case 'Resigned': return 'secondary'
+        case 'Vacation': return 'secondary'
+        case 'Fired': return 'danger'
         default: return 'primary'
     }
 }
@@ -40,13 +41,15 @@ const EmployeeList = () => {
                 <CDataTable
                     items={usersData}
                     fields={fields}
-                    dark
+                    light
                     hover
                     striped
-                    bordered
+                    outlined
+                    addTableClasses={classes.tablecolor}
                     size="sm"
-                    itemsPerPage={10}
+                    itemsPerPage={20}
                     pagination
+                    addition_props = {classes.tablecolor}
                     scopedSlots={{
                         'status':
                             (item) => (

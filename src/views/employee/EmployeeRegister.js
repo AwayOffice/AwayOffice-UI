@@ -107,10 +107,10 @@ const EmployeeRegister = () => {
 
                 </CForm>
             </CCardBody>
-            <CCardFooter>
-                <CButton type="submit" size="sm" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Submit</CButton>
-                <CButton type="reset" size="sm" color="danger"> <FontAwesomeIcon icon={All.faCircle} /> Reset</CButton> 
-                <CButton to={"/employee/employeelist"} type="reset" size="sm" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Back</CButton>
+            <CCardFooter >
+                <CButton style={{marginRight:"30px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Submit</CButton>
+                <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} /> Reset</CButton> 
+                <CButton style={{marginRight:"30px"}} to={"/employee/employeelist"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Back</CButton>
             </CCardFooter>
         </CCard>
     )
