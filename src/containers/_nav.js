@@ -3,21 +3,31 @@ export default [
     _tag: 'CSidebarNavItem',
     name: 'Dashboard',
     to: '/dashboard',
-    icon: 'cil-speedometer',
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    }
+    icon: 'cil-chart-table',
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW',
+    // }
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Employee']
+    _children: ['WorkFlow']
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Employee',
+    name: 'Employees',
     to: '/employee/employeelist',
     icon: 'cil-user',
-  }
+  },
+
+
+  // {
+  //   _tag: 'CSidebarNavItem',
+  //   name: 'Employees',
+  //   to: '/employee/employeelist',
+  //   icon: 'cil-user',
+  // }
+
+  
 ]
 

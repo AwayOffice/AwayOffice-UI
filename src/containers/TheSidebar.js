@@ -12,6 +12,8 @@ import {
   CSidebarNavItem,
 } from '@coreui/react'
 
+import ICON from '../assets/kuehne-nagel-logo-blue.png'
+
 import CIcon from '@coreui/icons-react'
 
 // sidebar nav config
@@ -20,18 +22,28 @@ import navigation from './_nav'
 const TheSidebar = () => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.sidebarShow)
-
+  const icon_style = {
+    width: '97.5%',
+    height: '97%',
+    background: 'white'
+                      }
+                      
   return (
     <CSidebar
       show={show}
       onShowChange={(val) => dispatch({type: 'set', sidebarShow: val })}
     >
-      <CSidebarBrand className="d-md-down-none" to="/">
-        <CIcon
+      <CSidebarBrand className="d-md-down-none"  to="/">
+      <img src={ICON}  alt="logo" style={icon_style} />
+
+
+        {/* <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
           height={35}
-        />
+        /> */}
+
+
         <CIcon
           className="c-sidebar-brand-minimized"
           name="sygnet"
