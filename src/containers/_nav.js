@@ -19,6 +19,12 @@ export default [
     to: '/employee/employeelist',
     icon: 'cil-user',
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Vendors',
+    to: '/vendor/vendorList',
+    icon: 'cil-user',
+  },
 
 
   // {
