@@ -25,7 +25,7 @@ const getBadge = status => {
         default: return 'primary'
     }
 }
-const fields = ['name', 'registered', 'role', 'status']
+const fields = ['full_name', 'registered', 'role', 'status']
 
 
 const EmployeeList = () => {
