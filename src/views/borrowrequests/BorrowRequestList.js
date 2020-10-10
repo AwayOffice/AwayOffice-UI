@@ -32,7 +32,7 @@ const BorrowRequestList = () => {
             <CCardHeader style={{fontSize: "15px"}}>
                 BorrowRequest List
                 <div className="card-header-actions">
-                <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/borrowrequest/borrowRequestForm"} className="card-header-action">Create Borrow Request</Link>
+                <FontAwesomeIcon icon={All.faLaptopHouse} size='2x' /><FontAwesomeIcon icon={All.faPlusCircle} /><Link to={"/borrowrequest/borrowRequestForm"} className="card-header-action">Device Borrow Request</Link>
                 </div>
             </CCardHeader>
             <CCardBody>
