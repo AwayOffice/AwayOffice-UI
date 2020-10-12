@@ -33,6 +33,13 @@ export default [
     to: '/borrowrequest/borrowRequestList',
     icon: 'cil-devices',
   },
+  
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Complaints',
+    to: '/complaints/complaintsList',
+    icon: 'cil-warning',
+  },
 
 
   

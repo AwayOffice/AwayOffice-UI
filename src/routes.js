@@ -7,6 +7,9 @@ const VendorList = React.lazy(() => import('./views/vendors/VendorList'));
 const VendorRegister = React.lazy(() => import('./views/vendors/VendorRegister'));
 const BorrowRequestList = React.lazy(() => import('./views/borrowrequests/BorrowRequestList'));
 const BorrowRequestForm = React.lazy(() => import('./views/borrowrequests/BorrowRequestForm'));
+const ComplaintsList = React.lazy(() => import('./views/complaints/ComplaintsList'));
+const ComplaintsForm= React.lazy(() => import('./views/complaints/ComplaintsForm'));
+
 
 
 
@@ -20,7 +23,9 @@ const routes = [
   { path: '/vendor/vendorList', name: 'Vendor', component: VendorList },
   { path: '/vendor/vendorRegister', name: 'Vendor', component: VendorRegister },
   { path: '/borrowrequest/borrowRequestList', name: 'Borrow Requests', component: BorrowRequestList },
-  { path: '/borrowrequest/borrowRequestForm', name: 'Borrow Requests Form', component: BorrowRequestForm }
+  { path: '/borrowrequest/borrowRequestForm', name: 'Borrow Requests Form', component: BorrowRequestForm },
+  { path: '/complaints/complaintsList', name: 'Complaints List', component: ComplaintsList },
+  { path: '/complaints/complaintsForm', name: 'Complaints Form', component: BorrowRequestForm }
 
 
 ];

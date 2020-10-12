@@ -10,7 +10,7 @@ import {
     CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import vendorsData from './BorrowRequestData';
+import complaintsData from './ComplaintsData';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
@@ -23,21 +23,21 @@ const getBadge = status => {
 
     }
 }
-const fields = ['assetModelName','assetModelManafacturer', 'quantity','startDate','endDate','status','employee']
+const fields = ['title','description', 'asset','employee']
 
 
 const BorrowRequestList = () => {
     return (
         <CCard>
             <CCardHeader style={{fontSize: "15px"}}>
-                BorrowRequest List
+                Complaints List
                 <div className="card-header-actions">
-                <FontAwesomeIcon icon={All.faLaptopHouse} size='2x' /><FontAwesomeIcon icon={All.faPlusCircle} /><Link to={"/borrowrequest/borrowRequestForm"} className="card-header-action">Device Borrow Request</Link>
+                <FontAwesomeIcon icon={All.faLaptopHouse} size='2x' /><FontAwesomeIcon icon={All.faPlusCircle} /><Link to={"/comlaints/ComplaintsForm"} className="card-header-action">File Complain</Link>
                 </div>
             </CCardHeader>
             <CCardBody>
                 <CDataTable style={{color: "blue"}}
-                    items={vendorsData}
+                    items={complaintsData}
                     fields={fields}
                     light
                     hover
@@ -48,12 +48,10 @@ const BorrowRequestList = () => {
                     itemsPerPage={5}
                     pagination
                     scopedSlots={{
-                        'status':
+                        'asset':
                             (item) => (
                                 <td>
-                                    <CBadge color={getBadge(item.status)}>
-                                        {item.status}
-                                    </CBadge>
+                                {item.asset.model}-{item.asset.manafacturer}
                                 </td>
                             ),
                          'employee':
