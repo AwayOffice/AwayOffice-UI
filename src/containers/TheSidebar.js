@@ -25,7 +25,9 @@ const TheSidebar = () => {
   const icon_style = {
     width: '97.5%',
     height: '97%',
-    background: 'white'
+    background: 'white',
+    padding: '5px',
+    margin:'-5px'
                       }
                       
   return (
@@ -36,12 +38,12 @@ const TheSidebar = () => {
       <CSidebarBrand className="d-md-down-none"  to="/">
       <img src={ICON}  alt="logo" style={icon_style} />
 
-
-        {/* <CIcon
+{/* 
+        { <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"
           height={35}
-        /> */}
+        /> } */}
 
 
         <CIcon
