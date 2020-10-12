@@ -41,7 +41,7 @@ const AssetModelList = () => {
             <CCardHeader>
                 Asset Model List
                 <div className="card-header-actions">
-                    <FontAwesomeIcon icon={All.faArchive} /> <Link to={"/Inventory/assetmodel"} className="card-header-action">Create New</Link>
+                    <FontAwesomeIcon icon={All.faArchive} /> <Link to={"/inventory/assetmodel"} className="card-header-action">Create New</Link>
                 </div>
             </CCardHeader>
             <CCardBody>

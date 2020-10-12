@@ -26,8 +26,8 @@ const routes = [
   { path: '/vendor/vendorList', name: 'Vendor', component: VendorList },
   { path: '/vendor/vendorRegister', name: 'Vendor', component: VendorRegister },
 
-  { path: '/Inventory/assetmodel', name: 'Vendor', component: AssetModel },
-  { path: '/Inventory/assetmodellist', name: 'Vendor', component: AssetModelList }
+  { path: '/inventory/assetmodel', name: 'Vendor', component: AssetModel },
+  { path: '/inventory/assetmodellist', name: 'Vendor', component: AssetModelList },
   { path: '/borrowrequest/borrowRequestList', name: 'Borrow Requests', component: BorrowRequestList },
   { path: '/borrowrequest/borrowRequestForm', name: 'Borrow Requests Form', component: BorrowRequestForm },
   { path: '/complaints/complaintsList', name: 'Complaints List', component: ComplaintsList },
