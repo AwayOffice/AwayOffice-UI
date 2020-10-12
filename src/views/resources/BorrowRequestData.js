@@ -1,5 +1,5 @@
 import React from 'react'
-import usersData from '../users/UsersData'
+import usersData from './UsersData'
 
 
 

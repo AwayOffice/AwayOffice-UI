@@ -10,7 +10,7 @@ import {
     CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import vendorsData from './BorrowRequestData';
+import vendorsData from '../resources/BorrowRequestData';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
@@ -32,7 +32,7 @@ const BorrowRequestList = () => {
             <CCardHeader style={{fontSize: "15px"}}>
                 BorrowRequest List
                 <div className="card-header-actions">
-                <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/borrowrequest/borrowRequestForm"} className="card-header-action">Create Borrow Request</Link>
+                <FontAwesomeIcon icon={All.faLaptopHouse} size='2x' /><FontAwesomeIcon icon={All.faPlusCircle} /><Link to={"/borrowrequest/borrowRequestForm"} className="card-header-action">Device Borrow Request</Link>
                 </div>
             </CCardHeader>
             <CCardBody>
