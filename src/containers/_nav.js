@@ -26,14 +26,29 @@ export default [
         to: '/vendor/vendorList',
         icon: 'cil-bank',
     },
-
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Borrow Requests',
+    to: '/borrowrequest/borrowRequestList',
+    icon: 'cil-devices',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Contracts',
+    to: '/contract/contractList',
+    icon: 'cil-color-border',
+  },  {
+    _tag: 'CSidebarNavItem',
+    name: 'Purchase Order',
+    to: '/purchaseOrder/purchaseOrderList',
+    icon: 'cil-note-add',
+  },
     {
         _tag: 'CSidebarNavItem',
         name: 'Borrow Requests',
         to: '/borrowrequest/borrowRequestList',
         icon: 'cil-devices',
     },
-
     {
         _tag: 'CSidebarNavItem',
         name: 'Complaints',
