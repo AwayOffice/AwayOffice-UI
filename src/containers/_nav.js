@@ -33,6 +33,18 @@ export default [
     to: '/borrowrequest/borrowRequestList',
     icon: 'cil-devices',
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Contracts',
+    to: '/contract/contractList',
+    icon: 'cil-color-border',
+  },  {
+    _tag: 'CSidebarNavItem',
+    name: 'Purchase Order',
+    to: '/purchaseOrder/purchaseOrderList',
+    icon: 'cil-note-add',
+  },
+
 
 
   
