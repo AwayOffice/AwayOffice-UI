@@ -1,5 +1,5 @@
-import usersData from '../users/UsersData'
-import assetModelData from '../asset/AssetModelData'
+import usersData from './UsersData'
+import assetModelData from './AssetModelData'
 
 
 

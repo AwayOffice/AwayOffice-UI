@@ -10,7 +10,7 @@ import {
     CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import vendorsData from './BorrowRequestData';
+import vendorsData from '../resources/BorrowRequestData';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'

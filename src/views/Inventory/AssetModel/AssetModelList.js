@@ -15,7 +15,7 @@ import {
     CModalTitle
 } from '@coreui/react';
 import { Link } from 'react-router-dom'
-import tempData from '../../tempData/assetModelData'
+import tempData from '../../resources/tempData/assetModelData'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'

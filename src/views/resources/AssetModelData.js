@@ -1,4 +1,4 @@
-import usersData from '../users/UsersData'
+import usersData from './UsersData'
 
 const assetModelData = [
     {id: 0, name: 'Macbook Air', description: 1 , model: 'MacBook Air 13" 2015',manafacturer: 'Apple' },

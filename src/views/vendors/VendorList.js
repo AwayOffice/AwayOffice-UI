@@ -11,7 +11,7 @@ import {
     CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import vendorsData from './VendorsData';
+import vendorsData from '../resources/VendorsData';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
