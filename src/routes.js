@@ -5,6 +5,13 @@ const EmployeeList = React.lazy(() => import('./views/employee/EmployeeList'));
 const EmployeeRegister = React.lazy(() => import('./views/employee/EmployeeRegister'));
 const VendorList = React.lazy(() => import('./views/vendors/VendorList'));
 const VendorRegister = React.lazy(() => import('./views/vendors/VendorRegister'));
+const BorrowRequestList = React.lazy(() => import('./views/borrowrequests/BorrowRequestList'));
+const BorrowRequestForm = React.lazy(() => import('./views/borrowrequests/BorrowRequestForm'));
+const ComplaintsList = React.lazy(() => import('./views/complaints/ComplaintsList'));
+const ComplaintsForm= React.lazy(() => import('./views/complaints/ComplaintsForm'));
+
+
+
 
 const AssetModel = React.lazy(() => import('./views/Inventory/AssetModel/AssetModel'));
 const AssetModelList = React.lazy(() => import('./views/Inventory/AssetModel/AssetModelList'));
@@ -21,6 +28,12 @@ const routes = [
 
   { path: '/Inventory/assetmodel', name: 'Vendor', component: AssetModel },
   { path: '/Inventory/assetmodellist', name: 'Vendor', component: AssetModelList }
+  { path: '/borrowrequest/borrowRequestList', name: 'Borrow Requests', component: BorrowRequestList },
+  { path: '/borrowrequest/borrowRequestForm', name: 'Borrow Requests Form', component: BorrowRequestForm },
+  { path: '/complaints/complaintsList', name: 'Complaints List', component: ComplaintsList },
+  { path: '/complaints/complaintsForm', name: 'Complaints Form', component: BorrowRequestForm }
+
+
 ];
 
 export default routes;

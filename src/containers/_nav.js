@@ -1,9 +1,10 @@
+
 export default [
   {
     _tag: 'CSidebarNavItem',
     name: 'Dashboard',
     to: '/dashboard',
-    icon: 'cil-chart-table',
+    icon: 'cil-browser',
     // badge: {
     //   color: 'info',
     //   text: 'NEW',
@@ -17,22 +18,29 @@ export default [
     _tag: 'CSidebarNavItem',
     name: 'Employees',
     to: '/employee/employeelist',
-    icon: 'cil-user',
+    icon: 'cil-people',
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Vendors',
     to: '/vendor/vendorList',
-    icon: 'cil-user',
+    icon: 'cil-bank',
   },
 
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Borrow Requests',
+    to: '/borrowrequest/borrowRequestList',
+    icon: 'cil-devices',
+  },
+  
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Complaints',
+    to: '/complaints/complaintsList',
+    icon: 'cil-warning',
+  },
 
-  // {
-  //   _tag: 'CSidebarNavItem',
-  //   name: 'Employees',
-  //   to: '/employee/employeelist',
-  //   icon: 'cil-user',
-  // }
 
   
 ]
