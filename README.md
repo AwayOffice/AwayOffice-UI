@@ -8,6 +8,7 @@ Technology Used:
 
 - CoreUI Admin Template 3.3.0
 
+## Preview: https://awayoffice.web.app/
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine.
