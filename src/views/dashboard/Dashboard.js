@@ -3,7 +3,9 @@ import React, { lazy } from 'react'
 const Dashboard = () => {
   return (
     <>
-    <h1>Welcome to Away Office. Enjoy using our app.</h1>
+    <h1>Welcome to Away Office App <b>(Under-Development-ReactJS)</b>. Enjoy using our app.</h1>
+    <br></br>
+    <h2>Repository: </h2><h2><a href={"https://github.com/awayoffice/AwayOffice-UI"}>https://github.com/awayoffice/AwayOffice-UI</a></h2>
     <br></br>
     <br></br>
     <ul>
