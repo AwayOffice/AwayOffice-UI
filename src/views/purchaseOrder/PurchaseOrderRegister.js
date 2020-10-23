@@ -10,8 +10,12 @@ import {
     CFormGroup,
     CInput,
     CLabel,
+    CSelect,
+    CTextarea,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
+
+import DatePicker from 'react-date-picker';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
@@ -21,9 +25,10 @@ class PurchaseOrderRegister extends Component {
         super(props);
 
         this.state = {
-          inputName: '',
-          inputAddress: '',
-          inputEmail: ''
+          issueDate: '',
+          paymentSchedule: '',
+          poStatus: '',
+          contactEmail: ''
         };
       }
 
@@ -36,9 +41,10 @@ class PurchaseOrderRegister extends Component {
 
     resetInputHandler = () => {
         this.setState({
-            inputName: '',
-            inputAddress: '',
-            inputEmail: ''
+            issueDate: '',
+            paymentSchedule: '',
+            poStatus: '',
+            contactEmail: ''
         })
     }
 
@@ -53,16 +59,13 @@ class PurchaseOrderRegister extends Component {
                                 <CLabel htmlFor="email-input">Issue Date</CLabel>
                             </CCol>
                             <CCol xs="12" md="9">
-                                <CInput type="text" 
+                                <CInput type="date" 
                                 value={this.state.inputName} 
                                 onChange={this.inputChangeHandler}
-                                id="date-input" 
-                                name="dateInput" 
-                                placeholder="Enter Date" 
-                                autoComplete="date" /> 
-                                
-                            </CCol> 
-                            
+                                id="issueDate" 
+                                name="issueDate"                                 
+                                autoComplete="date" />             
+                            </CCol>                             
                         </CFormGroup>
     
                         <CFormGroup row>
@@ -71,44 +74,62 @@ class PurchaseOrderRegister extends Component {
                             </CCol>
                             <CCol xs="12" md="9">
                                 <CInput 
-                                type="email" 
+                                type="date" 
                                 value={this.state.inputEmail} 
                                 onChange={this.inputChangeHandler}
-                                id="schedule-input" 
-                                name="scheduleInput" 
-                                placeholder="Enter Schedule - Date Format" 
-                                autoComplete="email" />
+                                id="paymentSchedule" 
+                                name="paymentSchedule"             
+                            />
                             </CCol>
                         </CFormGroup>
     
                         <CFormGroup row>
                             <CCol md="3">
-                                <CLabel htmlFor="address-input">Status</CLabel>
+                                <CLabel htmlFor="poStatus"> PO Status</CLabel>
                             </CCol>
+                            
                             <CCol xs="12" md="9">
-                                <CInput
-                                // a dropdown should be used here!!!
-                                    name="inputAddress"
+                            <CSelect custom name="poStatus" id="poStatus" 
+                                    value={this.state.inputAddress} 
+                                    onChange={this.inputChangeHandler}>
+                                    <option value="0">Select Status</option>
+                                    <option value="1">Pending</option>
+                                    <option value="2">Accepted</option>
+                                    <option value="3">Rejected</option>
+                                    <option value="4">Cancelled</option>
+                                    <option value="5">Received</option>
+                                    <option value="6">Completed</option>
+                                </CSelect>
+                                
+                                {/* <CInput name="inputAddress"
                                     value={this.state.inputAddress} 
                                     onChange={this.inputChangeHandler}
                                     id="status-input"
                                     rows="2"
                                     placeholder="Status"
-                                />
+                                /> */}
                             </CCol>
                         </CFormGroup>
 
 
                         <CFormGroup row>
                             <CCol md="3">
-                                <CLabel htmlFor="address-input">Contact</CLabel>
+                                <CLabel htmlFor="contactEmail">Contact Email</CLabel>
                             </CCol>
                             <CCol xs="12" md="9">
-                                <CInput
-                                    name="inputContactEmail"
-                                    value={this.state.inputAddress} 
+                                {/* <CTextarea
+                                    name="contactEmail"
+                                    id="contactEmail"
+                                    value={this.state.contactEmail} 
                                     onChange={this.inputChangeHandler}
-                                    id="status-input"
+                                    rows="2"
+                                    placeholder="Contact Email"
+                                /> */}
+                                <CInput
+                                    name="contactEmail"
+                                    value={this.state.contactEmail} 
+                                    onChange={this.inputChangeHandler}
+                                    id="contactEmail"
                                     rows="2"
                                     placeholder="Contact Email"
                                 />
