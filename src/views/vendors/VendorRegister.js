@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {
     CButton,
     CCard,
+    CTextarea,
     CCardBody,
     CCardFooter,
     CCardHeader,
