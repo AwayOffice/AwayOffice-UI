@@ -1,12 +1,9 @@
 import React, { useState }  from 'react';
 import {
-    CBadge,
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
     CDataTable,
-    CRow,
     CButton,
     CModal,
     CModalBody,
@@ -15,20 +12,20 @@ import {
     CModalTitle
 } from '@coreui/react';
 import { Link } from 'react-router-dom'
-import tempData from '../../resources/tempData/assetModelData'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
+import assetModelData from '../../resources/AssetModelData';
 
-const getBadge = status => {
-    switch (status) {
-        case 'Active': return 'primary'
-        case 'Resigned': return 'secondary'
-        case 'Vacation': return 'secondary'
-        case 'Fired': return 'danger'
-        default: return 'primary'
-    }
-}
+// const getBadge = status => {
+//     switch (status) {
+//         case 'Active': return 'primary'
+//         case 'Resigned': return 'secondary'
+//         case 'Vacation': return 'secondary'
+//         case 'Fired': return 'danger'
+//         default: return 'primary'
+//     }
+// }
 const fields = ['name', 'model', 'description', 'manufacturer']
 
 
@@ -46,7 +43,7 @@ const AssetModelList = () => {
             </CCardHeader>
             <CCardBody>
                 <CDataTable
-                    items={tempData}
+                    items={assetModelData}
                     fields={fields}
                     light
                     hover
@@ -69,7 +66,7 @@ const AssetModelList = () => {
               </CModalHeader>
               <CModalBody>
               <CDataTable
-                    items={tempData}
+                    items={assetModelData}
                     fields={fields}
                     light
                     hover

@@ -5,13 +5,12 @@ import {
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
     CDataTable,
-    CRow,
-    CButton
+
 } from '@coreui/react';
 import { Link } from 'react-router-dom'
-import usersData from '../resources/UsersData'
+import employeeData from '../resources/EmployeeData';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
@@ -39,7 +38,7 @@ const EmployeeList = () => {
             </CCardHeader>
             <CCardBody>
                 <CDataTable
-                    items={usersData}
+                    items={employeeData}
                     fields={fields}
                     light
                     hover
