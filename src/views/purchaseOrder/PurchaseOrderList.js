@@ -44,7 +44,7 @@ const PurchaseOrderList = () => {
                     hover
                     striped
                     outlined
-                    size="sm"
+                    size="m"
                     itemsPerPage={5}
                     pagination
                     scopedSlots={{

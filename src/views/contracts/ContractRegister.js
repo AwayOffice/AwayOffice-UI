@@ -10,6 +10,8 @@ import {
     CFormGroup,
     CInput,
     CLabel,
+    CTextarea,
+    CSelect,
 } from '@coreui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,9 +22,9 @@ class ContractRegister extends Component {
         super(props);
 
         this.state = {
-          inputType: '',
-          inputDescription: '',
-          inputStatus: ''
+        contractType: '',
+        contractDescription: '',
+        contractStatus: ''
         };
       }
 
@@ -35,9 +37,9 @@ class ContractRegister extends Component {
 
     resetInputHandler = () => {
         this.setState({
-            inputType: '',
-            inputDescription: '',
-            inputStatus: ''
+            contractType: '',
+            contractDescription: '',
+            contractStatus: ''
         })
     }
 
@@ -56,8 +58,8 @@ class ContractRegister extends Component {
                                 <CInput type="text" 
                                 value={this.state.inputName} 
                                 onChange={this.inputChangeHandler}
-                                id="name-input" 
-                                name="inputName" 
+                                id="contractType" 
+                                name="contractType" 
                                 placeholder="Contract Type" 
                                 autoComplete="name" /> 
                                 
@@ -70,16 +72,15 @@ class ContractRegister extends Component {
                                 <CLabel htmlFor="email-input">Contract Description</CLabel>
                             </CCol>
 
-                            {/* Contract Description can be a textarea */}
                             <CCol xs="12" md="9">
-                                <CInput 
-                                type="email" 
-                                value={this.state.inputEmail} 
+                            <CTextarea
+                                name="contractDescription"
+                                id="contractDescription"
+                                value={this.state.inputAddress} 
                                 onChange={this.inputChangeHandler}
-                                id="email-input" 
-                                name="inputEmail" 
-                                placeholder="Contract Description" 
-                                autoComplete="email" />
+                                rows="2"
+                                placeholder="Contract Description"
+                            />
                             </CCol>
                         </CFormGroup>
     
@@ -89,21 +90,21 @@ class ContractRegister extends Component {
                             </CCol>
                             {/* Status can also be a dropdown */}
                             <CCol xs="12" md="9">
-                                <CInput
-                                    name="inputAddress"
+                                <CSelect custom name="contractStatus" id="contractStatus" 
                                     value={this.state.inputAddress} 
-                                    onChange={this.inputChangeHandler}
-                                    id="address-input"
-                                    rows="2"
-                                    placeholder="Contract Status..."
-                                />
+                                    onChange={this.inputChangeHandler}>
+                                    <option value="0">Select Status</option>
+                                    <option value="1">Active</option>
+                                    <option value="2">Blocked</option>
+                                    <option value="3">Expired</option>
+                                </CSelect>
                             </CCol>
                         </CFormGroup>
 
                 <CCardFooter >
                     <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Register</CButton>
                     <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} /> Reset </CButton> 
-                    <CButton style={{marginRight:"30px"}} to={"/vendor/vendorList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Go Back </CButton>
+                    <CButton style={{marginRight:"30px"}} to={"/contract/contractList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Go Back </CButton>
                 </CCardFooter>
     
                     </CForm>

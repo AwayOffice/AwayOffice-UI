@@ -40,14 +40,11 @@ const VendorList = () => {
                     fields={fields}
                     light
                     hover
-                    
                     striped
                     outlined
-                    addTableClasses={classes.tablecolor}
-                    size="sm"
+                    size="m"
                     itemsPerPage={5}
                     pagination
-                    addition_props = {classes.tablecolor}
                     scopedSlots={{
                         'status':
                             (item) => (

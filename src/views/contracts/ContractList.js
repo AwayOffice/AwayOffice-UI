@@ -43,7 +43,7 @@ const ContractList = () => {
                     hover
                     striped
                     outlined
-                    size="sm"
+                    size="m"
                     itemsPerPage={5}
                     pagination
                     scopedSlots={{

@@ -20,9 +20,9 @@ class VendorRegister extends Component {
         super(props);
 
         this.state = {
-          inputName: '',
-          inputAddress: '',
-          inputEmail: ''
+          vendorName: '',
+          homeAddress: '',
+          emailAddress: ''
         };
       }
 
@@ -35,9 +35,9 @@ class VendorRegister extends Component {
 
     resetInputHandler = () => {
         this.setState({
-            inputName: '',
-            inputAddress: '',
-            inputEmail: ''
+            vendorName: '',
+            homeAddress: '',
+            emailAddress: ''
         })
     }
 
@@ -55,8 +55,8 @@ class VendorRegister extends Component {
                                 <CInput type="text" 
                                 value={this.state.inputName} 
                                 onChange={this.inputChangeHandler}
-                                id="name-input" 
-                                name="inputName" 
+                                id="vendorName" 
+                                name="vendorName" 
                                 placeholder="Enter Name" 
                                 autoComplete="name" /> 
                                 
@@ -73,8 +73,8 @@ class VendorRegister extends Component {
                                 type="email" 
                                 value={this.state.inputEmail} 
                                 onChange={this.inputChangeHandler}
-                                id="email-input" 
-                                name="inputEmail" 
+                                id="emailAddress" 
+                                name="emailAddress" 
                                 placeholder="Enter Email" 
                                 autoComplete="email" />
                             </CCol>
@@ -85,14 +85,23 @@ class VendorRegister extends Component {
                                 <CLabel htmlFor="address-input">Home Address</CLabel>
                             </CCol>
                             <CCol xs="12" md="9">
-                                <CInput
+                                <CTextarea
+                                    name="homeAddress"
+                                    id="homeAddress"
+                                    // value={this.state.inputAddress} 
+                                    onChange={this.inputChangeHandler}
+                                    rows="2"
+                                    placeholder="Home Address"
+                                />
+
+                                {/* <CInput
                                     name="inputAddress"
                                     value={this.state.inputAddress} 
                                     onChange={this.inputChangeHandler}
                                     id="address-input"
                                     rows="2"
                                     placeholder="Home Address..."
-                                />
+                                /> */}
                             </CCol>
                         </CFormGroup>
 
