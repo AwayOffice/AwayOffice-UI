@@ -1,13 +1,9 @@
 import React from 'react';
 import {
-    CBadge,
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
     CDataTable,
-    CRow,
-    CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
 import complaintsData from '../resources/ComplaintsData';
@@ -15,14 +11,14 @@ import complaintsData from '../resources/ComplaintsData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
 
-const getBadge = status => {
-    switch (status) {
-        case 'Accepted': return 'primary'
-        case 'Pending': return 'secondary'
-        case 'Rejected': return 'danger'
+// const getBadge = status => {
+//     switch (status) {
+//         case 'Accepted': return 'primary'
+//         case 'Pending': return 'secondary'
+//         case 'Rejected': return 'danger'
 
-    }
-}
+//     }
+// }
 const fields = ['title','description', 'asset','employee']
 
 

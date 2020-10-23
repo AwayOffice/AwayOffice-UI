@@ -13,7 +13,6 @@ import {
     CSelect,
     CTextarea,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react';
 
 import DatePicker from 'react-date-picker';
 

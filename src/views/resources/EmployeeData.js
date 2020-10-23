@@ -1,4 +1,4 @@
-const usersData = [
+const employeeData = [
   {id: 0, full_name: 'John Doe', registered: '2018/01/01', role: 'Guest', status: 'Fired'},
   {id: 1, full_name: 'Samppa Nori', registered: '2018/01/01', role: 'Member', status: 'Active'},
   {id: 2, full_name: 'Estavan Lykos', registered: '2018/02/01', role: 'Staff', status: 'Fired'},
@@ -25,5 +25,4 @@ const usersData = [
   {id: 23, full_name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Vacation'},
   {id: 42, full_name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Fired'}
 ]
-
-export default usersData
+export default employeeData
