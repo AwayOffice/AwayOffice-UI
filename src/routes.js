@@ -12,7 +12,7 @@ const ContractRegister = React.lazy(() => import('./views/contracts/ContractRegi
 const PurchaseOrderList = React.lazy(() => import('./views/purchaseOrder/PurchaseOrderList'));
 const PurchaseOrderRegister = React.lazy(() => import('./views/purchaseOrder/PurchaseOrderRegister'));
 const ComplaintsList = React.lazy(() => import('./views/complaints/ComplaintsList'));
-const ComplaintsForm= React.lazy(() => import('./views/complaints/ComplaintsForm'));
+// const ComplaintsForm= React.lazy(() => import('./views/complaints/ComplaintsForm'));
 
 
 

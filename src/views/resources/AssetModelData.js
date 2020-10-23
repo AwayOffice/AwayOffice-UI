@@ -1,8 +1,6 @@
-<<<<<<< HEAD:src/views/asset/AssetModelData.js
-import employeeData from '../employee/EmployeesData'
-=======
-import usersData from './UsersData'
->>>>>>> main:src/views/resources/AssetModelData.js
+import employeeData from '../resources/EmployeeData'
+
+
 
 const assetModelData = [
     {id: 0, name: 'Macbook Air', description: 1 , model: 'MacBook Air 13" 2015',manafacturer: 'Apple' },

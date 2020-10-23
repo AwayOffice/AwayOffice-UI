@@ -5,13 +5,11 @@ import {
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
     CDataTable,
-    CRow,
-    CButton
+
 } from '@coreui/react';
 import { Link } from 'react-router-dom'
-import employeeData from '../employee/EmployeesData'
+import employeeData from '../resources/EmployeeData';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

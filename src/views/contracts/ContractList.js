@@ -8,11 +8,12 @@ import {
     CDataTable,
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as All from '@fortawesome/free-solid-svg-icons';
+import contractData from '../resources/ContractData';
 
-import contractData from './ContractData';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import * as All from '@fortawesome/free-solid-svg-icons'
+
 
 const getBadge = status => {
     switch (status) {

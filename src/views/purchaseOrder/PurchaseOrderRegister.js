@@ -11,7 +11,6 @@ import {
     CInput,
     CLabel,
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'

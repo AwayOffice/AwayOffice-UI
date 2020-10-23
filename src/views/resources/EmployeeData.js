@@ -25,5 +25,4 @@ const employeeData = [
   {id: 23, full_name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Vacation'},
   {id: 42, full_name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Fired'}
 ]
-
 export default employeeData

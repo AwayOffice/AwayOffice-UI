@@ -5,10 +5,7 @@ import {
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
     CDataTable,
-    CRow,
-    CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
 import vendorsData from '../resources/VendorsData';

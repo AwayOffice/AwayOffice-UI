@@ -1,12 +1,6 @@
-<<<<<<< HEAD:src/views/complaints/ComplaintsData.js
-import employeeData from '../employee/EmployeesData'
-import assetModelData from '../asset/AssetModelData'
-=======
-import usersData from './UsersData'
-import assetModelData from './AssetModelData'
->>>>>>> main:src/views/resources/ComplaintsData.js
+import assetModelData from './AssetModelData';
 
-
+import employeeData from './EmployeeData';
 
 const borrowRequestData = [
     {id: 0, title: 'Problematic Monitor', description: "Unknown" , asset:assetModelData[1]  ,employee:employeeData[1] },

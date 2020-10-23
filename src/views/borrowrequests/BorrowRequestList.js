@@ -4,10 +4,10 @@ import {
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
+    // CCol,
     CDataTable,
-    CRow,
-    CButton
+    // CRow,
+    // CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
 import vendorsData from '../resources/BorrowRequestData';
@@ -20,7 +20,7 @@ const getBadge = status => {
         case 'Accepted': return 'primary'
         case 'Pending': return 'secondary'
         case 'Rejected': return 'danger'
-
+        default: 
     }
 }
 const fields = ['assetModelName','assetModelManafacturer', 'quantity','startDate','endDate','status','employee']
