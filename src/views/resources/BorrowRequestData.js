@@ -1,5 +1,9 @@
 import React from 'react'
+<<<<<<< HEAD:src/views/borrowrequests/BorrowRequestData.js
 import employeeData from '../employee/EmployeesData'
+=======
+import usersData from './UsersData'
+>>>>>>> main:src/views/resources/BorrowRequestData.js
 
 
 

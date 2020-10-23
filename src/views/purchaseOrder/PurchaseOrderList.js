@@ -1,56 +1,52 @@
 import React from 'react';
-import classes from './VendorList.css'
+
 import {
     CBadge,
     CCard,
     CCardBody,
     CCardHeader,
-    CCol,
     CDataTable,
-    CRow,
-    CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-import vendorsData from '../resources/VendorsData';
+import purchaseOrderData from './PurchaseOrderData';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
 
 const getBadge = status => {
     switch (status) {
-        case 'Active': return 'primary'
-        case 'Resigned': return 'secondary'
-        case 'Vacation': return 'secondary'
-        case 'Fired': return 'danger'
+        case 'Pending': return 'secondary'
+        case 'Accepted': return 'primary'
+        case 'Rejected': return 'secondary'
+        case 'Cancelled': return 'danger'
+        case 'Received': return 'secondary'
+        case 'Completed': return 'primary'
         default: return 'primary'
     }
 }
-const fields = ['name', 'address', 'email']
+const fields = ['issue_date', 'payment_schedule', 'status', 'contact_email']
 
 
-const VendorList = () => {
+const PurchaseOrderList = () => {
     return (
         <CCard>
             <CCardHeader style={{fontSize: "15px"}}>
-                Vendor List
+                Purchase Orders
                 <div className="card-header-actions">
-                <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/vendor/vendorRegister"} className="card-header-action">Register New Vendor</Link>
+                <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/purchaseOrder/purchaseOrderRegister"} className="card-header-action">Create New PO</Link>
                 </div>
             </CCardHeader>
             <CCardBody>
                 <CDataTable style={{color: "blue"}}
-                    items={vendorsData}
+                    items={purchaseOrderData}
                     fields={fields}
                     light
                     hover
-                    
                     striped
                     outlined
-                    addTableClasses={classes.tablecolor}
                     size="sm"
                     itemsPerPage={5}
                     pagination
-                    addition_props = {classes.tablecolor}
                     scopedSlots={{
                         'status':
                             (item) => (
@@ -67,4 +63,4 @@ const VendorList = () => {
     )
 }
 
-export default VendorList
+export default PurchaseOrderList

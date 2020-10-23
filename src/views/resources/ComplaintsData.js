@@ -1,5 +1,10 @@
+<<<<<<< HEAD:src/views/complaints/ComplaintsData.js
 import employeeData from '../employee/EmployeesData'
 import assetModelData from '../asset/AssetModelData'
+=======
+import usersData from './UsersData'
+import assetModelData from './AssetModelData'
+>>>>>>> main:src/views/resources/ComplaintsData.js
 
 
 
