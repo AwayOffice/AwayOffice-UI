@@ -1,9 +1,9 @@
 {
-  "name": "@coreui/coreui-free-react-admin-template",
+  "name": "@awayoffice/coreui-react",
   "version": "3.0.0",
   "description": "CoreUI React Open Source Bootstrap 4 Admin Template",
   "author": {
-    "name": "CoreUI",
+    "name": "awayoffice",
     "url": "https://coreui.io",
     "github": "https://github.com/coreui",
     "twitter": "https://twitter.com/core_ui"

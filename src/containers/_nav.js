@@ -45,16 +45,17 @@ export default [
   },
     {
         _tag: 'CSidebarNavItem',
-        name: 'Borrow Requests',
-        to: '/borrowrequest/borrowRequestList',
-        icon: 'cil-devices',
-    },
-    {
-        _tag: 'CSidebarNavItem',
         name: 'Complaints',
         to: '/complaints/complaintsList',
         icon: 'cil-warning',
     },
+    // {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Login',
+    //     to: '/login',
+    //     icon: 'cil-warning',
+
+    // },
 
     {
         _tag: 'CSidebarNavDropdown',
