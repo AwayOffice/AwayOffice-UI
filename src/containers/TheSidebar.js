@@ -14,7 +14,6 @@ import {
 
 import ICON from '../assets/kuehne-nagel-logo-blue.png'
 
-import CIcon from '@coreui/icons-react'
 
 // sidebar nav config
 import navigation from './_nav'
@@ -46,11 +45,11 @@ const TheSidebar = () => {
         /> } */}
 
 
-        <CIcon
+        {/* <CIcon
           className="c-sidebar-brand-minimized"
           name="sygnet"
           height={35}
-        />
+        /> */}
       </CSidebarBrand>
       <CSidebarNav>
 

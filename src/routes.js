@@ -12,6 +12,7 @@ const ContractRegister = React.lazy(() => import('./views/contracts/ContractRegi
 const PurchaseOrderList = React.lazy(() => import('./views/purchaseOrder/PurchaseOrderList'));
 const PurchaseOrderRegister = React.lazy(() => import('./views/purchaseOrder/PurchaseOrderRegister'));
 const ComplaintsList = React.lazy(() => import('./views/complaints/ComplaintsList'));
+const Login = React.lazy(() => import('./views/pages/login/Login'));
 // const ComplaintsForm= React.lazy(() => import('./views/complaints/ComplaintsForm'));
 
 
@@ -42,7 +43,8 @@ const routes = [
   { path: '/borrowrequest/borrowRequestList', name: 'Borrow Requests', component: BorrowRequestList },
   { path: '/borrowrequest/borrowRequestForm', name: 'Borrow Requests Form', component: BorrowRequestForm },
   { path: '/complaints/complaintsList', name: 'Complaints List', component: ComplaintsList },
-  { path: '/complaints/complaintsForm', name: 'Complaints Form', component: BorrowRequestForm }
+  { path: '/complaints/complaintsForm', name: 'Complaints Form', component: BorrowRequestForm },
+  { path: '/login', name: 'Login Page', component:Login },
 
 
 

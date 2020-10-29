@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './VendorList.css'
 import {
     CBadge,
     CCard,

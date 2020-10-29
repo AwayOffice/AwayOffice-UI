@@ -11,10 +11,8 @@ import {
     CInput,
     CLabel,
     CSelect,
-    CTextarea,
 } from '@coreui/react'
 
-import DatePicker from 'react-date-picker';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
