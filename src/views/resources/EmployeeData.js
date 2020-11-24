@@ -20,7 +20,7 @@ const employeeData = [
   {id: 18, full_name: 'Micheal Mercurius', registered: '2018/02/01', role: 'Admin', status: 'Resigned'},
   {id: 19, full_name: 'Ganesha Dubhghall', registered: '2018/03/01', role: 'Member', status: 'Vacation'},
   {id: 20, full_name: 'Hiroto Šimun', registered: '2018/01/21', role: 'Staff', status: 'Active'},
-  {id: 21, full_name: 'Vishnu Serghei', registered: '2018/01/01', role: 'Member', status: 'Active'},
+  {id: 21, full_name: 'Vishnu Serghei',  registered: '2018/01/01', role: 'Member', status: 'Active'},
   {id: 22, full_name: 'Zbyněk Phoibos', registered: '2018/02/01', role: 'Staff', status: 'Fired'},
   {id: 23, full_name: 'Aulus Agmundr', registered: '2018/01/01', role: 'Member', status: 'Vacation'},
   {id: 42, full_name: 'Ford Prefect', registered: '2001/05/25', role: 'Alien', status: 'Fired'}
