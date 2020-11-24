@@ -33,6 +33,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "enzyme": "^3.11.0",

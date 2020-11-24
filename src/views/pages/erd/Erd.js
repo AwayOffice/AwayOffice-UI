@@ -14,7 +14,7 @@ import React from 'react'
 //   CRow
 // } from '@coreui/react'
 // import CIcon from '@coreui/icons-react'
-import ErdDiagram from '../../../assets/HomeAssetClassDiagram.png'
+import ErdDiagram from '../../../assets/HomeAssetClassDiagram.png' 
 // import './Login.css'
 
 const Login = () => {

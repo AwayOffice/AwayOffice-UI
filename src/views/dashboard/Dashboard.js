@@ -1,6 +1,12 @@
 import React from 'react'
 
+import HelloWorldService from '../../api/HelloWorldService/HelloWorldService'
+
 const Dashboard = () => {
+  HelloWorldService.executeHelloWorldService().then(() => console.log("promise completed"))
+  HelloWorldService.executeHelloWorldService().then((response) => console.log(response))
+
+
   return (
     <div>
     <h1>Welcome to Away Office App <b>(Under Development ReactJS)</b>. Enjoy using our app.</h1>

@@ -1,4 +1,5 @@
 import React, { useState }  from 'react';
+import axios from 'axios';
 import {
     CCard,
     CCardBody,
@@ -15,7 +16,7 @@ import { Link } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
-import assetModelData from '../../resources/AssetModelData';
+// import assetModelData from '../../resources/AssetModelData';
 
 // const getBadge = status => {
 //     switch (status) {
@@ -32,9 +33,27 @@ const fields = ['name', 'model', 'description', 'manufacturer']
 const AssetModelList = () => {
 
     const [large, setLarge] = useState(false)
+    const [assetModelData, setAssetModelData] = useState([])
+    
+    
+    var toki =  axios.post('http://localhost:8070/api/authenticate',{"username":"admin","password":"admin"});
+    toki.then(response =>{
+      var token = response.data.accessToken
+      var assetModelData = axios.get('http://localhost:8070/api/inventory/assetmodels',{headers:
+      {'Authorization': 'Bearer ' +token,
+        "Content-Type": "application/json"}})
+        .then(response => {
+          setAssetModelData(response.data._embedded.assetModelDTOList)
+          //console.log(response)
+        } )
+          .catch(e => console.log(e.toString()));
+    })
+    // 
 
     return (
+      
         <CCard>
+
             <CCardHeader>
                 Asset Model List
                 <div className="card-header-actions">
