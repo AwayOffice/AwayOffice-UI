@@ -1,9 +1,9 @@
 .LoginButton {
       background-color:rgb(18, 49, 110);
       color: white;
-    }
+}
 
-    .img-rotate {
+.img-rotate {
         animation: rotation 8s infinite linear;
       }
       
@@ -14,9 +14,28 @@
         to {
           transform: rotate(359deg);
         }
-      }
+}
 
-      .LoginButton:hover {
+.LoginButton:hover {
         background-color:rgb(18, 49, 110);
         color: white;
+}
+
+
+.element {
+        display: inline-block;                
+        font-size: 1px;
+        padding: 1px;              
+        animation: skew 3s infinite;
+        transform: skew(20deg);
+        animation-direction: alternate;        
       }
+      
+      @keyframes skew {
+        0% {
+          transform: skewX(20deg);
+        }
+        100% {
+          transform: skewX(-20deg);
+        }
+      }    

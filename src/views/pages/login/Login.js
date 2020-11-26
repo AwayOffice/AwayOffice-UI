@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {withRouter, useHistory } from "react-router-dom";
+
 
 import {
   CButton,
@@ -13,7 +13,8 @@ import {
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
-  CRow
+  CRow,
+  CAlert,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import Logo from '../../../assets/favicon.png'
@@ -27,7 +28,16 @@ class Login extends Component {
 
     this.state = {
       token: '',
+      username: undefined,
+      password: undefined,
+      isLoggedin: undefined,
     }
+  }
+
+  inputChangeHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
   }
 
   loginHandler = (event) => {
@@ -39,7 +49,11 @@ class Login extends Component {
                 "password":"admin",
             }).then(response =>{
                 this.setState({token: response.data.accessToken});
-                console.log(this.state.token);                                                                   
+                console.log(this.state.token);
+                if(this.state.token && this.state.username === 'admin' && this.state.password === "admin") {
+                  this.props.history.push(`/`);                                                                   
+                } else this.setState({isLoggedin: false});
+                
             }).catch(error => console.log(error.toString()));
     }
  
@@ -54,7 +68,7 @@ class Login extends Component {
                     <CCardBody>
                       <CForm onSubmit={this.loginHandler}>
                         <span style={{textAlign:"center"}}><h1 style={{color:'rgb(18, 49, 110)'}}>Login</h1>
-                        <p className="text-muted">Sign In to Kuehne+Nagel account</p></span>
+                        <p className="text-muted">Sign In to your Kuehne+Nagel account</p></span>
                         <hr/>
                         <br/>
                         <CInputGroup className="mb-3">
@@ -63,23 +77,28 @@ class Login extends Component {
                               <CIcon name="cil-user" />
                             </CInputGroupText>
                           </CInputGroupPrepend>
-                          <CInput type="text" placeholder="Username" autoComplete="username" />
+                          <CInput name="username" onChange={this.inputChangeHandler} type="text" placeholder="Username" autoComplete="off" />
                         </CInputGroup>
+
                         <CInputGroup className="mb-4">
                           <CInputGroupPrepend>
                             <CInputGroupText>
                               <CIcon name="cil-lock-locked" />
                             </CInputGroupText>
                           </CInputGroupPrepend>
-                          <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                          <CInput name="password" onChange={this.inputChangeHandler} type="password" placeholder="Password" autoComplete="off" />
                         </CInputGroup>
+                        {
+                          this.state.isLoggedin === false  ?                        
+                          <CAlert color="warning" style={{color: "black"}} closeButton>
+                            Invalid Credentials!
+                          </CAlert>
+                          : null
+                        }
                         <CRow>
                           <CCol xs="6">
                             <CButton  type="submit" className="px-4 LoginButton">Login</CButton>
-                          </CCol>
-                          {/* <CCol xs="6" className="text-right">
-                            <CButton color="link" className="px-0">Forgot password?</CButton>
-                          </CCol> */}
+                          </CCol>            
                         </CRow>
                       </CForm>
                     </CCardBody>
@@ -88,13 +107,7 @@ class Login extends Component {
                     <CCardBody className="text-center" >
                       <div>
                         <br/>
-                        <img src={Logo} style={{ width: '60%'}} className='img-rotate' alt="Siktir"/>
-                        {/* <h2>Sign up</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                          labore et dolore magna aliqua.</p>
-                        <Link to="/register">
-                          <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
-                        </Link> */}
+                        <img src={Logo} style={{ width: '60%'}} className='element' alt="Siktir"/>
                       </div>
                     </CCardBody>
                   </CCard>
@@ -102,11 +115,11 @@ class Login extends Component {
               </CCol>
             </CRow>
           </CContainer>
-          {
+          {/* {
             this.state.token !== '' ?
             this.props.history.push("/dashboard")
             : null                    
-          }
+          } */}
         </div>
 
       )
