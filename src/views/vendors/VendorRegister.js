@@ -161,7 +161,7 @@ class VendorRegister extends Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                            {/* <th scope="col">Id</th> */}
+                            <th scope="col">Id</th>
                             <th scope="col">Name</th>
                             <th scope="col">Address</th>
                             <th scope="col">Email</th>
@@ -169,7 +169,7 @@ class VendorRegister extends Component {
                         </thead>
                         <tbody>
                             <tr>
-                            {/* <th scope="row">{this.state.createdVendorData.id}</th> */}
+                            <th scope="row">{this.state.createdVendorData.id}</th>
                             <td>{this.state.createdVendorData.name}</td>
                             <td>{this.state.createdVendorData.address}</td>
                             <td>{this.state.createdVendorData.email}</td>
