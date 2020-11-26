@@ -40,6 +40,7 @@ class VendorList extends Component {
         this.state = {
             token: '',
             vendors: [],
+            vendorKeys: [],
             vendorByID: {},
             vendorID: null,
             deletedVendorByID: {},
@@ -68,8 +69,12 @@ class VendorList extends Component {
                         'Authorization': 'Bearer ' + this.state.token,
                         "Content-Type": "application/json",                        
                     }}).then(response => {
-                        this.setState({vendors: response.data._embedded.vendorDTOList })   
-                        console.log(response)
+                        console.log(Object.keys(response.data._embedded.vendorDTOList[0]))
+                        this.setState({
+                            vendors: response.data._embedded.vendorDTOList,
+                            vendorKeys: Object.keys(response.data._embedded.vendorDTOList[0]).filter(item => item !== '_links')
+                        })   
+                       
                     })
                     .catch(error => console.log(error.toString()))                   
             }).catch(error => console.log(error.toString()));
@@ -198,7 +203,7 @@ class VendorList extends Component {
                 <CCardBody>
                     <CDataTable style={{color: "blue"}}
                         items={this.state.vendors}
-                        fields={fields}
+                        fields={this.state.vendorKeys}
                         light
                         hover
                         striped
