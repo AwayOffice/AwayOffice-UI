@@ -50,10 +50,9 @@ class Login extends Component {
             }).then(response =>{
                 this.setState({token: response.data.accessToken});
                 console.log(this.state.token);
-                if(this.state.token && this.state.username === 'admin' && this.state.password === "admin") {
+                if(this.state.token && this.state.username === 'admin' && this.state.password === "admin123!") {
                   this.props.history.push(`/dashboard`);                                                                   
-                } else this.setState({isLoggedin: false});
-                
+                } else this.setState({isLoggedin: false});                
             }).catch(error => console.log(error.toString()));
     }
  
