@@ -51,7 +51,7 @@ class Login extends Component {
                 this.setState({token: response.data.accessToken});
                 console.log(this.state.token);
                 if(this.state.token && this.state.username === 'admin' && this.state.password === "admin") {
-                  this.props.history.push(`/`);                                                                   
+                  this.props.history.push(`/dashboard`);                                                                   
                 } else this.setState({isLoggedin: false});
                 
             }).catch(error => console.log(error.toString()));
@@ -86,7 +86,7 @@ class Login extends Component {
                               <CIcon name="cil-lock-locked" />
                             </CInputGroupText>
                           </CInputGroupPrepend>
-                          <CInput name="password" onChange={this.inputChangeHandler} type="password" placeholder="Password" autoComplete="off" />
+                          <CInput name="password" onChange={this.inputChangeHandler} type="password" placeholder="Password" />
                         </CInputGroup>
                         {
                           this.state.isLoggedin === false  ?                        
