@@ -93,6 +93,7 @@ class EmployeeRegister extends Component {
                         }
                     }).then(response => {
                         this.setState({ registeredEmployee: response.data })
+                        alert('Employee Created');
                         console.log(response)
                     })
                     .catch(error => console.log(error.toString()))
