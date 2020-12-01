@@ -370,7 +370,7 @@ class VendorList extends Component {
                         placeholder="Enter Vendor ID.."
                         autoComplete="off"
                         style={{width: "400px", float:"left", marginRight: "10px"}}
-                    />  <button onClick={this.deleteVendorByID} type="button" style={{float: "left"}} className="btn btn-info">Delete Vendor</button>
+                    />  <button onClick={this.deleteVendorByID} type="button" style={{float: "left"}} className="btn btn-danger">Delete Vendor</button>
                     {/* <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/vendor/vendorRegister"} className="card-header-action">Register New Vendor</Link> */}
                     </div>
                 </CCardHeader>
