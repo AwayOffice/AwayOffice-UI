@@ -10,7 +10,7 @@ import {
     CForm,
     CFormGroup,
     CInput,
-    CLabel,
+    CLabel,           
 } from '@coreui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,26 +19,24 @@ import * as All from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 
 class VendorRegister extends Component {
+
+    // Constructor
     constructor(props) {
         super(props);
 
         this.state = {
-        //   vendorID: '',
-          vendorName: '',
-          vendorHomeAddress: '',
-          vendorEmailAddress: '',
+            registeredVendor: {},
 
-          //create vendor,
-          createVendorID: '',
-          createVendorName: '',
-          createVendorAddress: '',
-          createVendorEmail: '',
-          createdVendorData: {}
+            id: '',
+            name: '',
+            address: '',
+            email: '',
         };
       }
 
-    inputChangeHandler = (event) => {
-        event.preventDefault();
+
+    // custom methods  
+    inputChangeHandler = (event) => {        
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -46,20 +44,19 @@ class VendorRegister extends Component {
 
     resetInputHandler = () => {
         this.setState({
-            vendorName: '',
-            homeAddress: '',
-            emailAddress: ''
+            name: '',
+            address: '',
+            email: ''
         })
     }
 
     createVendorHandler = (event) => {
         event.preventDefault();
     
-        let vendor = {
-            id: this.state.vendorID,
-            name: this.state.vendorName,
-            address: this.state.vendorHomeAddress,
-            email: this.state.vendorEmailAddress,
+        let vendor = {            
+            name: this.state.name,
+            address: this.state.address,
+            email: this.state.email,
         }
         
         axios.post('http://localhost:8070/api/authenticate',
@@ -76,7 +73,8 @@ class VendorRegister extends Component {
                     'Authorization': 'Bearer ' + this.state.token,
                     "Content-Type": "application/json",                    
                 }}).then(response => {
-                    this.setState({createdVendorData: response.data})   
+                    alert(`Vendor: ${this.state.name} is successfully registered!`)
+                    this.setState({registeredVendor: response.data})                       
                     console.log(response)
                 })
                 .catch(error => console.log(error.toString()))                   
@@ -88,33 +86,18 @@ class VendorRegister extends Component {
             <CCard>
                 <CCardHeader>Register New Vendor</CCardHeader>
                 <CCardBody>
-                    <CForm onSubmit={this.createVendorHandler} onReset={this.resetInputHandler} encType="multipart/form-data" className="form-horizontal">
-                    {/* <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">Vendor ID</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                                <CInput type="text" 
-                                value={this.state.inputName} 
-                                onChange={this.inputChangeHandler}
-                                id="vendorID" 
-                                name="vendorID" 
-                                placeholder="Enter ID" 
-                                autoComplete="id" />                                 
-                            </CCol>                             
-                        </CFormGroup> */}
-
+                    <CForm onSubmit={this.createVendorHandler} onReset={this.resetInputHandler} encType="multipart/form-data" className="form-horizontal">                
                         <CFormGroup row>
                             <CCol md="3">
                                 <CLabel htmlFor="email-input">Vendor Name</CLabel>
                             </CCol>
                             <CCol xs="12" md="9">
                                 <CInput type="text" 
-                                value={this.state.inputName} 
+                                value={this.state.name} 
                                 onChange={this.inputChangeHandler}
-                                id="vendorName" 
-                                name="vendorName" 
-                                placeholder="Enter Name" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Enter Vendor Name" 
                                 autoComplete="name" />                                 
                             </CCol>                             
                         </CFormGroup>                           
@@ -125,12 +108,12 @@ class VendorRegister extends Component {
                             </CCol>
                             <CCol xs="12" md="9">
                                 <CTextarea
-                                    name="vendorHomeAddress"
-                                    id="homeAddress"
-                                    value={this.state.inputAddress} 
+                                    name="address"
+                                    id="address"
+                                    value={this.state.address} 
                                     onChange={this.inputChangeHandler}
                                     rows="2"
-                                    placeholder="Home Address"
+                                    placeholder="Enter Vendor Home Address"
                                 />                            
                             </CCol>
                         </CFormGroup>
@@ -142,11 +125,11 @@ class VendorRegister extends Component {
                             <CCol xs="12" md="9">
                                 <CInput 
                                 type="email" 
-                                value={this.state.inputEmail} 
+                                value={this.state.email} 
                                 onChange={this.inputChangeHandler}
-                                id="emailAddress" 
-                                name="vendorEmailAddress" 
-                                placeholder="Enter Email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Enter Vendor Email" 
                                 autoComplete="email" />
                             </CCol>
                         </CFormGroup>
@@ -169,10 +152,10 @@ class VendorRegister extends Component {
                         </thead>
                         <tbody>
                             <tr>
-                            <th scope="row">{this.state.createdVendorData.id}</th>
-                            <td>{this.state.createdVendorData.name}</td>
-                            <td>{this.state.createdVendorData.address}</td>
-                            <td>{this.state.createdVendorData.email}</td>
+                            <th scope="row">{this.state.registeredVendor.id}</th>
+                            <td>{this.state.registeredVendor.name}</td>
+                            <td>{this.state.registeredVendor.address}</td>
+                            <td>{this.state.registeredVendor.email}</td>
                             </tr>                          
                         </tbody>
                         </table>    
