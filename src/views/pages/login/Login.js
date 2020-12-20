@@ -21,6 +21,8 @@ import Logo from '../../../assets/favicon.png'
 import './Login.css'
 
 import axios from "axios";
+import {connect} from 'react-redux';
+import getToken from '../../../actions/authenticationAction'
 
 class Login extends Component {
   constructor(props) {
@@ -42,21 +44,29 @@ class Login extends Component {
 
   loginHandler = (event) => {
     event.preventDefault();
-    console.log("Here 1")
-    axios.post('http://localhost:8070/api/authenticate',
-            {
-                "username":"admin",
-                "password":"admin",
-            }).then(response =>{
-                this.setState({token: response.data.accessToken});
-                console.log(this.state.token);
-                if(this.state.token && this.state.username === 'admin' && this.state.password === "admin123!") {
-                  this.props.history.push(`/dashboard`);                                                                   
-                } else this.setState({isLoggedin: false});                
-            }).catch(error => console.log(error.toString()));
+    this.props.dispatch(getToken);
+    console.log(this.props.token)
+    
+    if(this.props.token && this.state.username === 'admin' && this.state.password === "admin123!") {
+      this.props.history.push(`/dashboard`);                                                                   
+    } else this.setState({isLoggedin: false});
+
+    // console.log("Here 1")
+    // axios.post('http://localhost:8070/api/authenticate',
+    //         {
+    //             "username":"admin",
+    //             "password":"admin",
+    //         }).then(response =>{
+    //             this.setState({token: response.data.accessToken});
+    //             console.log(this.state.token);
+    //             if(this.state.token && this.state.username === 'admin' && this.state.password === "admin123!") {
+    //               this.props.history.push(`/dashboard`);                                                                   
+    //             } else this.setState({isLoggedin: false});                
+    //         }).catch(error => console.log(error.toString()));
     }
  
     render () {
+
       return (
         <div className="c-app c-default-layout flex-row align-items-center">
           <CContainer>
@@ -65,7 +75,7 @@ class Login extends Component {
                 <CCardGroup>
                   <CCard className="p-4">
                     <CCardBody>
-                      <CForm onSubmit={this.loginHandler}>
+                      <CForm>
                         <span style={{textAlign:"center"}}><h1 style={{color:'rgb(18, 49, 110)'}}>Login</h1>
                         <p className="text-muted">Sign In to your Kuehne+Nagel account</p></span>
                         <hr/>
@@ -96,7 +106,7 @@ class Login extends Component {
                         }
                         <CRow>
                           <CCol xs="6">
-                            <CButton  type="submit" className="px-4 LoginButton">Login</CButton>
+                            <CButton  onClick={this.loginHandler} className="px-4 LoginButton">Login</CButton>
                           </CCol>            
                         </CRow>
                       </CForm>
@@ -125,4 +135,14 @@ class Login extends Component {
     }
 }
 
-export default Login
+// const mapStateToProps = (store) => {
+//   return {
+//     posts: store.posts
+//   }
+// }
+
+export default connect((store) => {
+  return {
+    token: store.token
+  }
+})(Login);

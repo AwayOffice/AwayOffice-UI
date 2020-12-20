@@ -25,6 +25,7 @@ class VendorRegister extends Component {
         super(props);
 
         this.state = {
+            token: '',
             registeredVendor: {},
 
             id: '',
@@ -35,7 +36,8 @@ class VendorRegister extends Component {
       }
 
 
-    // custom methods  
+    // custom methods
+       
     inputChangeHandler = (event) => {        
         this.setState({
             [event.target.name]: event.target.value
@@ -135,7 +137,7 @@ class VendorRegister extends Component {
                         </CFormGroup>
 
                 <CCardFooter> <br/> 
-                    <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Submit</CButton>
+                    <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} /> Register Vendor</CButton>
                     <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} /> Reset</CButton> 
                     <CButton style={{marginRight:"30px"}} to={"/vendor/vendorList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Back</CButton>
                 </CCardFooter> <hr/>
