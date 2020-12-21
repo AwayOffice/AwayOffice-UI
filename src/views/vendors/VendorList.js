@@ -25,6 +25,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 
+import {connect} from 'react-redux';
+
 const getBadge = status => {
     switch (status) {
         case 'Active': return 'primary'
@@ -73,37 +75,31 @@ class VendorList extends Component {
         this.getVendorList();
     }
 
-
     getVendorList = () => {
-        axios.post('http://localhost:8070/api/authenticate',
+        console.log(this.props.token + "  => HEREEEEE with REDUX")
+
+        axios.get('http://localhost:8070/api/hr/vendors',
             {
-                "username":"admin",
-                "password":"admin",
-            }).then(response => {
-                this.setState({token: response.data.accessToken});
-                console.log(this.state.token)                   
-                axios.get('http://localhost:8070/api/hr/vendors',
-                    {
-                        headers:
-                        {
-                            'Authorization': 'Bearer ' + this.state.token,
-                            "Content-Type": "application/json",                        
-                        }}).then(response => {
-                            console.log(Object.keys(response.data._embedded.vendorDTOList[0]))
-                            this.setState({
-                                vendors: response.data._embedded.vendorDTOList,
-                                vendorKeys: Object.keys(response.data._embedded.vendorDTOList[0]).filter(item => item !== '_links')
-                            })   
-                        
-                        })
-                        .catch(error => console.log(error.toString()))                   
-                }).catch(error => console.log(error.toString()));
+                headers:
+            {
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",                        
+            }}).then(response => {
+                console.log(Object.keys(response.data._embedded.vendorDTOList[0]))
+                this.setState({
+                    vendors: response.data._embedded.vendorDTOList,
+                    vendorKeys: Object.keys(response.data._embedded.vendorDTOList[0]).filter(item => item !== '_links')
+            })})
+            .catch(error => console.log(error.toString()))         
     }
+
+    
 
     getVendorByID = (id) => {
         if(id === null){
             return null;
         }
+                
         //let vendorID = this.state.vendorID;
         axios.post('http://localhost:8070/api/authenticate',
             {
@@ -320,4 +316,8 @@ class VendorList extends Component {
     )};
 }
 
-export default VendorList
+export default connect((store) => {
+    return {
+      token: store.token
+    }
+  })(VendorList);

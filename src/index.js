@@ -3,15 +3,35 @@ import 'react-app-polyfill/stable';
 import './polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore, applyMiddleware, compose} from 'redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { icons } from './assets/icons'
 
 import { Provider } from 'react-redux'
-import store from './store'
+import reducer from './reducers/';
+import thunk from 'redux-thunk';
+//import store from './store'
 
 React.icons = icons
+
+const initialState = {
+	loading: false,
+	loaded: false,
+	token: '',
+	error: null,
+};
+
+const middleware = applyMiddleware(thunk);
+
+const store = createStore(reducer, initialState, 
+  compose(
+    middleware,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ));
+
+//export default store;
 
 ReactDOM.render(
   <Provider store={store}>
