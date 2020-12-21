@@ -45,9 +45,8 @@ class Login extends Component {
   loginHandler = (event) => {
     event.preventDefault();
     this.props.dispatch(getToken);
-    console.log(this.props.token)
-    
-    if(this.props.token && this.state.username === 'admin' && this.state.password === "admin123!") {
+
+    if(this.state.username === 'admin' && this.state.password === "admin123!") {      
       this.props.history.push(`/dashboard`);                                                                   
     } else this.setState({isLoggedin: false});
 
