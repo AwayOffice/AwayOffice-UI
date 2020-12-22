@@ -18,6 +18,7 @@ import * as All from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 
 import {connect} from 'react-redux';
+import VendorService from '../../api/VendorService.js'
 
 class VendorRegister extends Component {
 
@@ -62,41 +63,22 @@ class VendorRegister extends Component {
             email: this.state.email,
         }
 
-        console.log(this.props.token + " => HERE5 RegisterVendor");
-
-        axios.post('http://localhost:8070/api/hr/vendors/', vendor,
-        {
+        let headers =  {
             headers:
             {
                 'Authorization': 'Bearer ' + this.props.token,
                 "Content-Type": "application/json",                    
-            }}).then(response => {
+            }}
+
+        console.log(this.props.token + " => HERE5 RegisterVendor");
+
+        VendorService.createVendorHandler(vendor, headers)
+        .then(response => {
                 alert(`Vendor: ${this.state.name} is successfully registered!`)
                 this.setState({registeredVendor: response.data})                       
                 console.log(response)
             })
-            .catch(error => console.log(error.toString()))  
-        
-        // axios.post('http://localhost:8070/api/authenticate',
-        // {
-        //     "username":"admin",
-        //     "password":"admin",
-        // }).then(response =>{
-        //     this.setState({token: response.data.accessToken});
-        //     console.log(this.state.token)                               
-        //     axios.post('http://localhost:8070/api/hr/vendors/', vendor,
-        //     {
-        //         headers:
-        //         {
-        //             'Authorization': 'Bearer ' + this.state.token,
-        //             "Content-Type": "application/json",                    
-        //         }}).then(response => {
-        //             alert(`Vendor: ${this.state.name} is successfully registered!`)
-        //             this.setState({registeredVendor: response.data})                       
-        //             console.log(response)
-        //         })
-        //         .catch(error => console.log(error.toString()))                   
-        // }).catch(error => console.log(error.toString()));
+            .catch(error => console.log(error.toString()))          
     }
 
     render() {
