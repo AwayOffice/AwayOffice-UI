@@ -26,6 +26,7 @@ import * as All from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
 
 import {connect} from 'react-redux';
+import VendorService from '../../api/VendorService.js'
 
 const getBadge = status => {
     switch (status) {
@@ -72,43 +73,46 @@ class VendorList extends Component {
 
     // on page load
     componentDidMount() {
-        this.getVendorList();
+        this.getVendorList();      
     }
 
-    getVendorList = () => {
-        console.log(this.props.token + "  => HEREEEEE1 with REDUX")
+    getVendorList = () => { 
 
-        axios.get('http://localhost:8070/api/hr/vendors',
-            {
-                headers:
-            {
-                'Authorization': 'Bearer ' + this.props.token,
-                "Content-Type": "application/json",                        
-            }}).then(response => {
+        let headers = {
+            headers:
+        {
+            'Authorization': 'Bearer ' + this.props.token,
+            "Content-Type": "application/json",                        
+        }}
+
+        console.log(this.props.token + "  => HEREEEEE1 with REDUX");
+
+        VendorService.getVendorList(headers)
+            .then(response => {
                 console.log(Object.keys(response.data._embedded.vendorDTOList[0]))
                 this.setState({
                     vendors: response.data._embedded.vendorDTOList,
                     vendorKeys: Object.keys(response.data._embedded.vendorDTOList[0]).filter(item => item !== '_links')
             })})
-            .catch(error => console.log(error.toString()))         
+            .catch(error => console.log(error.toString()))   
     }
-
-    
-
+                                  
     getVendorByID = (id) => {
         if(id === null){
             return null;
         }
 
+        let headers = {
+            headers:
+        {
+            'Authorization': 'Bearer ' + this.props.token,
+            "Content-Type": "application/json",                        
+        }}
+
         console.log(this.props.token + "  => HEREEEEE2 with REDUX")
 
-        axios.get(`http://localhost:8070/api/hr/vendors/${id}`,
-            {
-                headers:
-                {
-                    'Authorization': 'Bearer ' + this.props.token,
-                    "Content-Type": "application/json",                        
-                }}).then(response => {
+       VendorService.getVendorById(id, headers)
+        .then(response => {
                     this.setState({
                         vendorByID: response.data,
                         id: response.data.id,
@@ -119,36 +123,7 @@ class VendorList extends Component {
                     this.toggleModalState(); 
                     console.log(response);
                 })
-                .catch(error => console.log(error.toString()))  
-                
-        //let vendorID = this.state.vendorID;
-        // axios.post('http://localhost:8070/api/authenticate',
-        //     {
-        //         "username":"admin",
-        //         "password":"admin",
-        //     }).then(response =>{
-        //         this.setState({token: response.data.accessToken});
-        //         //console.log(this.state.token)  
-        //         //console.log(vendorID)                 
-        //         axios.get(`http://localhost:8070/api/hr/vendors/${id}`,
-        //         {
-        //             headers:
-        //             {
-        //                 'Authorization': 'Bearer ' + this.state.token,
-        //                 "Content-Type": "application/json",                        
-        //             }}).then(response => {
-        //                 this.setState({
-        //                     vendorByID: response.data,
-        //                     id: response.data.id,
-        //                     name: response.data.name,
-        //                     address: response.data.address,
-        //                     email: response.data.email,                        
-        //                 })
-        //                 this.toggleModalState(); 
-        //                 console.log(response);
-        //             })
-        //             .catch(error => console.log(error.toString()))                   
-        //     }).catch(error => console.log(error.toString()));
+                .catch(error => console.log(error.toString()))                    
     }
 
     // Update Vendor Info Request
@@ -164,66 +139,42 @@ class VendorList extends Component {
             email: this.state.email,
         }
 
-        axios.put('http://localhost:8070/api/hr/vendors/', updatedVendor,
-        {
+        let headers = {
             headers:
-            {
-                'Authorization': 'Bearer ' + this.props.token,
-                "Content-Type": "application/json",                    
-            }}).then(response => {
+        {
+            'Authorization': 'Bearer ' + this.props.token,
+            "Content-Type": "application/json",                        
+        }}
+
+       VendorService.updateVendorInfoHandler(updatedVendor, headers)
+        .then(response => {
                 alert(`Vendor with id: ${response.data.id} and name: ${response.data.name} is successfully updated!`);
                 this.setState({                        
                     updatedVendor: response.data,
                     modalState: !this.state.modalState
                 })
                 this.getVendorList();
-                console.log(response)
+                console.log(response);
             })
-            .catch(error => console.log(error.toString())) 
-
-        
-        // axios.post('http://localhost:8070/api/authenticate',
-        // {
-        //     "username":"admin",
-        //     "password":"admin",
-        // }).then(response =>{
-        //     this.setState({token: response.data.accessToken});
-        //     console.log(this.state.token)  
-                           
-        //     axios.put('http://localhost:8070/api/hr/vendors/', updatedVendor,
-        //     {
-        //         headers:
-        //         {
-        //             'Authorization': 'Bearer ' + this.state.token,
-        //             "Content-Type": "application/json",                    
-        //         }}).then(response => {
-        //             alert(`Vendor with id: ${response.data.id} and name: ${response.data.name} is successfully updated!`);
-        //             this.setState({                        
-        //                 updatedVendor: response.data,
-        //                 modalState: !this.state.modalState
-        //             })
-        //             this.getVendorList();
-        //             console.log(response)
-        //         })
-        //         .catch(error => console.log(error.toString()))                   
-        // }).catch(error => console.log(error.toString()));
+            .catch(error => console.log(error.toString()))            
     }
 
     deleteVendorByID = (id) => {
         if(id === null) {
             return null;
         }
-        //let vendorID = this.state.vendorID;
+        
+        let headers = {
+            headers:
+        {
+            'Authorization': 'Bearer ' + this.props.token,
+            "Content-Type": "application/json",                        
+        }}
 
         console.log(this.props.token + "  => HEREEEEE4 with REDUX")
 
-        axios.delete(`http://localhost:8070/api/hr/vendors/${id}`,
-        {
-            headers:
-            {
-                'Authorization': 'Bearer ' + this.props.token,
-                "Content-Type": "application/json",                        
-            }}).then(response => {
+        VendorService.deleteVendorByID(id, headers)
+        .then(response => {
                 alert(`Vendor with id: ${response.data.id} and name: ${response.data.name} is successfully deleted!`);
                 this.setState({
                     deletedVendorByID: response.data,
@@ -232,32 +183,7 @@ class VendorList extends Component {
                 this.getVendorList(); 
                 console.log(response)
             })
-            .catch(error => console.log(error.toString()))      
-
-        // axios.post('http://localhost:8070/api/authenticate',
-        //     {
-        //         "username":"admin",
-        //         "password":"admin",
-        //     }).then(response =>{
-        //         this.setState({token: response.data.accessToken});
-        //         console.log(this.state.token)                                 
-        //         axios.delete(`http://localhost:8070/api/hr/vendors/${id}`,
-        //         {
-        //             headers:
-        //             {
-        //                 'Authorization': 'Bearer ' + this.state.token,
-        //                 "Content-Type": "application/json",                        
-        //             }}).then(response => {
-        //                 alert(`Vendor with id: ${response.data.id} and name: ${response.data.name} is successfully deleted!`);
-        //                 this.setState({
-        //                     deletedVendorByID: response.data,
-        //                     modalState: !this.state.modalState
-        //                 })  
-        //                 this.getVendorList(); 
-        //                 console.log(response)
-        //             })
-        //             .catch(error => console.log(error.toString()))                   
-        //     }).catch(error => console.log(error.toString()));
+            .catch(error => console.log(error.toString()))            
     }
 
     toggleModalState = () => {
