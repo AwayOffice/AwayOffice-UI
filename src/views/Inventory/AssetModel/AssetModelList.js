@@ -1,25 +1,31 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
+    CButton,
     CBadge,
     CCard,
     CCardBody,
     CCardHeader,
     CDataTable,
-    CLabel,
-    CInput,
+    CModal,
+    CModalBody,
+    CModalFooter,
+    CModalHeader,
+    CModalTitle,
+    CCol,
     CForm,
     CFormGroup,
-    CCol,
     CTextarea,
-    CCardFooter,
-    CButton,
+    CInput,
+    CLabel,
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
-//import vendorsData from '../resources/VendorsData';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
-import axios from "axios";
+
+import { connect } from 'react-redux';
+import AssetModelService from '../../../api/AssetModelService.js'
 
 const getBadge = status => {
     switch (status) {
@@ -30,22 +36,31 @@ const getBadge = status => {
         default: return 'primary'
     }
 }
-const fields = ['id', 'name', 'address', 'email']
-const base_url = 'http://localhost:8070'
-// const base_url = 'https://awayoffice.herokuapp.com'
+//const fields = ['id', 'name', 'address', 'email']
+
 
 class AssetModelList extends Component {
-    constructor(props){
-        super(props)
 
+    //constructor
+    constructor(props) {
+        super(props)
         this.state = {
             token: '',
             assetModels: [],
-            assetModelsKeys: [],
+            assetModelKeys: [],
+
+            modalState: false,
+
+            id: '',
+            name: '',
+            description: '',
+            model: '',
+            manufacturer: '',
+
+
             assetModelByID: {},
-            
-            deletedAssetModel: {},
-            assetmodelID:null,
+            assetModelID: null,
+            deletedAssetModelByID: {},
 
             //for put request,
             updateAssetModelID: '',
@@ -54,147 +69,153 @@ class AssetModelList extends Component {
             updateAssetModelModel: '',
             updateAssetModelManufacturer: '',
             updatedAssetModel: {},
-
         }
     }
 
-    getAssetModels = () => {
-        axios.post('http://localhost:8070/api/authenticate',
-            {
-                "username":"admin",
-                "password":"admin",
-            }).then(response =>{
-                this.setState({token: response.data.accessToken});
-                axios.get(base_url+'/api/inventory/assetmodels',
-                
-                {
-                    headers:
-                    {
-                        'Authorization': 'Bearer ' + this.state.token,
-                        "Content-Type": "application/json",                        
-                    }}).then(response => {
-                        this.setState({
-                            assetModels: response.data._embedded.assetModelDTOList,
-                            assetModelKeys: Object.keys(response.data._embedded.assetModelDTOList[0]).filter(item => item !== '_links')
-                        })   
-                       
-                    })
-                    .catch(error => console.log(error.toString()))                   
-            }).catch(error => console.log(error.toString()));
-    }
-
+    // on page load
     componentDidMount() {
-        this.getAssetModels();
+        this.getAssetModelList();
     }
 
+    getAssetModelList = () => {
 
-    onAssetModelIDChangeHandler = (event) => {
-        this.setState(
+        let headers = {
+            headers:
             {
-                [event.target.name]: event.target.value,
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",
             }
-        )
+        }
+
+
+        AssetModelService.getAssetModelList(headers)
+            .then(response => {
+                console.log(Object.keys(response.data._embedded.assetModelDTOList[0]))
+                this.setState({
+                    assetModels: response.data._embedded.assetModelDTOList,
+                    assetModelKeys: Object.keys(response.data._embedded.assetModelDTOList[0]).filter(item => item !== '_links')
+                })
+            })
+            .catch(error => console.log(error.toString()))
     }
 
-    getAssetModelsByID = () => {
-        let assetmodelID = this.state.assetmodelID;
-        axios.post('http://localhost:8070/api/authenticate',
+    getAssetModelByID = (id) => {
+        if (id === null) {
+            return null;
+        }
+
+        let headers = {
+            headers:
             {
-                "username":"admin",
-                "password":"admin",
-            }).then(response =>{
-                this.setState({token: response.data.accessToken});
-                axios.get(base_url+'/api/inventory/assetmodel/'+assetmodelID,
-                {
-                    headers:
-                    {
-                        'Authorization': 'Bearer ' + this.state.token,
-                        "Content-Type": "application/json",
-                        //"Access-Control-Allow-Headers": "X-Requested-With, content-type",
-                    }}).then(response => {
-                        this.setState({assetModelByID: response.data})   
-                    })
-                    .catch(error => console.log(error.toString()))                   
-            }).catch(error => console.log(error.toString()));
-    }
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",
+            }
+        }
 
-    inputChangeHandler = (event) => {
-        event.preventDefault();
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
+
+        AssetModelService.getAssetModelById(id, headers)
+            .then(response => {
+                this.setState({
+                    assetModelByID: response.data,
+                    id: response.data.id,
+                    name: response.data.name,
+                    description: response.data.description,
+                    model: response.data.model,
+                    manufacturer: response.data.manufacturer,
+                })
+                this.toggleModalState();
+            })
+            .catch(error => console.log(error.toString()))
     }
 
     // Update Vendor Info Request
     updateAssetModelInfoHandler = (event) => {
         event.preventDefault();
 
-        let assetModel = {
-            id: this.state.updateAssetModelID,
-            name: this.state.updateAssetModelName,
-            // description: this.state.updateAssetModelDescription,
-            model: this.state.updateAssetModelModel,
-            manufacturer: this.state.updateAssetModelManufacturer,
+
+        let updatedAssetModel = {
+            id: this.state.id,
+            name: this.state.name,
+            description: this.state.description,
+            model: this.state.model,
+            manufacturer: this.state.manufacturer
         }
-        axios.post('http://localhost:8070/api/authenticate',
-        {
-            "username":"admin",
-            "password":"admin",
-        }).then(response =>{
-            this.setState({token: response.data.accessToken});
-            axios.put(base_url+'/api/inventory/assetmodel/', assetModel,
+
+        let headers = {
+            headers:
             {
-                headers:
-                {
-                    'Authorization': 'Bearer ' + this.state.token,
-                    "Content-Type": "application/json",
-                    //"Access-Control-Allow-Headers": "X-Requested-With, content-type",
-                }}).then(response => {
-                    this.setState({
-                        updatedAssetModel: response.data
-                    })   
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",
+            }
+        }
+
+        AssetModelService.updateAssetModelInfoHandler(updatedAssetModel, headers)
+            .then(response => {
+                alert(`AssetModel with id: ${response.data.id} and name: ${response.data.name} is successfully updated!`);
+                this.setState({
+                    updatedAssetModel: response.data,
+                    modalState: !this.state.modalState
                 })
-                .catch(error => console.log(error.toString()))                   
-        }).catch(error => console.log(error.toString()));
+                this.getAssetModelList();
+                console.log(response);
+            })
+            .catch(error => console.log(error.toString()))
     }
 
+    deleteAssetModelByID = (id) => {
+        if (id === null) {
+            return null;
+        }
 
-
-    deleteAssetModelByID = (event) => {
-        let assetmodelID = this.state.assetmodelID;
-
-        axios.post('http://localhost:8070/api/authenticate',
+        let headers = {
+            headers:
             {
-                "username":"admin",
-                "password":"admin",
-            }).then(response =>{
-                this.setState({token: response.data.accessToken});
-                axios.delete(base_url+'/api/inventory/assetmodel/'+assetmodelID,
-                {
-                    headers:
-                    {
-                        'Authorization': 'Bearer ' + this.state.token,
-                        "Content-Type": "application/json",
-                        //"Access-Control-Allow-Headers": "X-Requested-With, content-type",
-                    }}).then(response => {
-                        this.setState({deletedAssetModel: response.data})   
-                    })
-                    .catch(error => console.log(error.toString()))                   
-            }).catch(error => console.log(error.toString()));
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",
+            }
+        }
+
+
+        AssetModelService.deleteAssetModelByID(id, headers)
+            .then(response => {
+                alert(`AssetModel with id: ${response.data.id} and name: ${response.data.name} is successfully deleted!`);
+                this.setState({
+                    deletedAssetModelByID: response.data,
+                    modalState: !this.state.modalState
+                })
+                this.getAssetModelList();
+                console.log(response)
+            })
+            .catch(error => console.log(error.toString()))
     }
 
-    render () {
+    toggleModalState = () => {
+        this.setState({
+            modalState: !this.state.modalState
+        });
+    }
+
+    inputChangeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    }
+
+    render() {
         return (
-            <>
+
             <CCard>
-                <CCardHeader style={{fontSize: "15px"}}>
+                <CCardHeader>
                     AssetModel List
                     <div className="card-header-actions">
-                    <FontAwesomeIcon icon={All.faLaptopMedical} size='2x'/><Link to={"/inventory/assetmodel"} className="card-header-action">Add new AssetModel</Link>
+                        <FontAwesomeIcon icon={All.faPlusSquare} /> <Link to={"/inventory/assetmodelregister"} className="card-header-action">Add New AssetModel</Link>
                     </div>
                 </CCardHeader>
                 <CCardBody>
-                    <CDataTable style={{color: "blue"}}
+                    <CDataTable
+                        sorter={true}
+                        columnFilter={true}
+                        tableFilter={true}
                         items={this.state.assetModels}
                         fields={this.state.assetModelKeys}
                         light
@@ -203,7 +224,9 @@ class AssetModelList extends Component {
                         outlined
                         size="m"
                         itemsPerPage={5}
+                        itemsPerPageSelect={true}
                         pagination
+                        onRowClick={(row) => this.getAssetModelByID(row.id)}
                         scopedSlots={{
                             'status':
                                 (item) => (
@@ -216,205 +239,94 @@ class AssetModelList extends Component {
                         }}
                     />
                 </CCardBody>
-            </CCard>
 
-            {/* Fetch AssetModel by its ID */}
-            <CCard>
-                <CCardHeader style={{fontSize: "15px"}}>                    
-                    <div>
-                    <CLabel style={{}}>Search for a AssetModel</CLabel> <br/>
-                    <CInput
-                        type="text"
-                        id="assetmodel-id"
-                        name="assetmodelID" onChange={this.onAssetModelIDChangeHandler}
-                        placeholder="Enter AssetModel ID.."
-                        autoComplete="off"
-                        style={{width: "400px", float:"left", marginRight: "10px"}}
-                    />  <button onClick={this.getAssetModelsByID} type="button" style={{float: "left"}} className="btn btn-info">Search Vendor</button>
-                    {/* <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/vendor/vendorRegister"} className="card-header-action">Register New Vendor</Link> */}
-                    </div>
-                </CCardHeader>
-                <CCardBody>
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            {/* <th scope="col">Description</th> */}
-                            <th scope="col">Model</th>
-                            <th scope="col">Manufacturer</th>
+                <CModal
+                    show={this.state.modalState}
+                    onClose={this.toggleModalState}
+                    size="lg"
+                >
+                    <CModalHeader closeButton>
+                        <CModalTitle>AssetModel Details</CModalTitle>
+                    </CModalHeader>
+                    <CModalBody>
+                        <CForm onSubmit={this.updateVendorInfoHandler} encType="multipart/form-data" className="form-horizontal">
+                            <CFormGroup row>
+                                <CCol xs="3">
+                                    <CFormGroup>
+                                        <CLabel htmlFor="Id">Id</CLabel>
+                                        <CInput id="Id" name="id" type="text" value={this.state.id} onChange={this.inputChangeHandler} required readOnly />
+                                    </CFormGroup>
+                                </CCol>
+                                <CCol xs="5">
+                                    <CFormGroup >
+                                        <CLabel htmlFor="status-input">Name</CLabel>
+                                        <CTextarea
+                                            name="name"
+                                            id="name"
+                                            value={this.state.name}
+                                            onChange={this.inputChangeHandler}
+                                            rows="2"
+                                            placeholder="Enter AssetModel New Name"
+                                        />
+                                    </CFormGroup>  </CCol>
+                            </CFormGroup>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <th scope="row">{this.state.assetModelByID.id}</th>
-                            <td>{this.state.assetModelByID.name}</td>
-                            {/* <td>{this.state.assetModelByID.description}</td> */}
-                            <td>{this.state.assetModelByID.model}</td>
-                            <td>{this.state.assetModelByID.manufacturer}</td>
+                            <CFormGroup row>
+                                <CCol xs="12" md="9">
+                                    <CFormGroup >
+                                        <CLabel htmlFor="status-input">Description</CLabel>
+                                        <CTextarea
+                                            name="description"
+                                            id="description"
+                                            value={this.state.description}
+                                            onChange={this.inputChangeHandler}
+                                            rows="2"
+                                            placeholder="Enter AssetModel New Description"
+                                        />
+                                    </CFormGroup>
+                                </CCol>
+                            </CFormGroup>
 
-                            </tr>                          
-                        </tbody>
-                        </table>
-                </CCardBody>
-            </CCard>
-
-            {/* Update Vendor Info */}
-            <CCard>
-                <CCardHeader>Update AssetModel's Information</CCardHeader>
-                <CCardBody>
-                    <CForm id="update-assetmodel" onSubmit={this.updateAssetModelInfoHandler} encType="multipart/form-data" className="form-horizontal">
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">ID</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                                <CInput type="text" 
-                                value={this.state.inputName} 
-                                onChange={this.inputChangeHandler}
-                                id="assetmodelID" 
-                                name="updateAssetModelID" 
-                                placeholder="Enter AssetModel ID" 
-                                autoComplete="id" />                                 
-                            </CCol>                             
-                        </CFormGroup>
-
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">Name</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                                <CInput type="text" 
-                                value={this.state.inputName} 
-                                onChange={this.inputChangeHandler}
-                                id="vendorName" 
-                                name="updateAssetModelName" 
-                                placeholder="Enter New Name" 
-                                autoComplete="name" />                                 
-                            </CCol>                             
-                        </CFormGroup>
-{/* 
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="address-input">Description</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
+                            <CFormGroup >
+                                <CLabel htmlFor="status-input">Model</CLabel>
                                 <CTextarea
-                                    name="updateAssetModelDescription"
-                                    id="homeAddress"
-                                    // value={this.state.inputAddress} 
+                                    name="model"
+                                    id="model"
+                                    value={this.state.model}
                                     onChange={this.inputChangeHandler}
                                     rows="2"
-                                    placeholder="Enter Asset Model Description"
-                                />                            
-                            </CCol>
-                        </CFormGroup>
-     */}
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">Model</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                            <CTextarea
-                                    name="updateAssetModelModel"
-                                    id="AssetModelModel"
-                                    // value={this.state.inputAddress} 
+                                    placeholder="Enter AssetModel New Model"
+                                />
+                            </CFormGroup>
+
+                            <CFormGroup >
+                                <CLabel htmlFor="status-input">Manufacturer</CLabel>
+                                <CTextarea
+                                    name="manufacturer"
+                                    id="manufacturer"
+                                    value={this.state.manufacturer}
                                     onChange={this.inputChangeHandler}
                                     rows="2"
-                                    placeholder="Enter AssetModel Model"
-                                /> 
-                            </CCol>
-                        </CFormGroup>  
+                                    placeholder="Enter AssetModel New Manufacturer"
+                                />
+                            </CFormGroup>
 
-                         <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">Manufacturer</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                            <CTextarea
-                                    name="updateAssetModelManufacturer"
-                                    id="AssetModelManufacturer"
-                                    // value={this.state.inputAddress} 
-                                    onChange={this.inputChangeHandler}
-                                    rows="2"
-                                    placeholder="Enter AssetModel Manufacturer"
-                                /> 
-                            </CCol>
-                        </CFormGroup>                                              
-                        <CCardFooter >
-                            <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Update</CButton>
-                        </CCardFooter>                                                
-                    </CForm>                   
-                </CCardBody>
-                <CCardHeader>The Updated AssetModel is</CCardHeader>
-                    <CCardBody>
-                                <table className="table table-hover">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">Id</th>
-                                        <th scope="col">Name</th>
-                                        {/* <th scope="col">Description</th> */}
-                                        <th scope="col">Model</th>
-                                        <th scope="col">Manufacturer</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <th scope="row">{this.state.updatedAssetModel.id}</th>
-                                        <td>{this.state.updatedAssetModel.name}</td>
-                                        {/* <td>{this.state.updatedAssetModel.description}</td> */}
-                                        <td>{this.state.updatedAssetModel.model}</td>
-                                        <td>{this.state.updatedAssetModel.manufacturer}</td>
-
-                                        </tr>                          
-                                    </tbody>
-                                    </table> 
-                                </CCardBody>  
+                        </CForm>
+                    </CModalBody>
+                    <CModalFooter>
+                        <CButton color="info" onClick={this.updateAssetModelInfoHandler}>Update AssetModel</CButton>{' '}
+                        <CButton color="danger" onClick={() => this.deleteAssetModelByID(this.state.id)}>Delete AssetModelndor</CButton>{' '}
+                        <CButton color="secondary" onClick={this.toggleModalState}>Cancel</CButton>
+                    </CModalFooter>
+                </CModal>
             </CCard>
 
-          
-            {/* Delete a Vendor by ID */}
-            <CCard>
-                <CCardHeader style={{fontSize: "15px"}}>                    
-                    <div>
-                    <CLabel style={{}}>Delete a AssetModel</CLabel> <br/>
-                    <CInput
-                        type="text"
-                        id="assetmodelID-id"
-                        name="assetmodelID" onChange={this.onAssetModelIDChangeHandler}
-                        placeholder="Enter AssetModel ID.."
-                        autoComplete="off"
-                        style={{width: "400px", float:"left", marginRight: "10px"}}
-                    />  <button onClick={this.deleteAssetModelByID} type="button" style={{float: "left"}} className="btn btn-danger">Delete AssetModel</button>
-                    {/* <FontAwesomeIcon icon={All.faUserPlus} /> <Link to={"/vendor/vendorRegister"} className="card-header-action">Register New Vendor</Link> */}
-                    </div>
-                </CCardHeader>
-                <CCardBody>
-                <CLabel style={{}}>The Deleted AssetModel is: </CLabel> <br/>
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Model</th>
-                            <th scope="col">Manufacturer</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <th scope="row">{this.state.deletedAssetModel.id}</th>
-                            <td>{this.state.deletedAssetModel.name}</td>
-                            <td>{this.state.deletedAssetModel.model}</td>
-                            <td>{this.state.deletedAssetModel.manufacturer}</td>
-                            </tr>                          
-                        </tbody>
-                        </table>
-                </CCardBody>
-            </CCard>
-            </>
-                )};
+        )
+    };
 }
 
-export default AssetModelList
+export default connect((store) => {
+    return {
+        token: store.token
+    }
+})(AssetModelList);

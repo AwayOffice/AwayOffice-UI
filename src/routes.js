@@ -14,13 +14,9 @@ const PurchaseOrderRegister = React.lazy(() => import('./views/purchaseOrder/Pur
 const ComplaintsList = React.lazy(() => import('./views/complaints/ComplaintsList'));
 // const Login = React.lazy(() => import('./views/pages/login/Login'));
 // const ComplaintsForm= React.lazy(() => import('./views/complaints/ComplaintsForm'));
-
-
-
-
-
-const AssetModel = React.lazy(() => import('./views/Inventory/AssetModel/AssetModel'));
+const AssetModelRegister = React.lazy(() => import('./views/Inventory/AssetModel/AssetModelRegister'));
 const AssetModelList = React.lazy(() => import('./views/Inventory/AssetModel/AssetModelList'));
+
 
 
 
@@ -38,8 +34,8 @@ const routes = [
   { path: '/purchaseOrder/purchaseOrderList', name: 'Purchase Order', component: PurchaseOrderList },
   { path: '/purchaseOrder/purchaseOrderRegister', name: 'Purchase Order Registration', component: PurchaseOrderRegister },
   { path: '/vendor/vendorRegister', name: 'Vendor', component: VendorRegister },
-  { path: '/inventory/assetmodel', name: 'Vendor', component: AssetModel },
-  { path: '/inventory/assetmodellist', name: 'Vendor', component: AssetModelList },
+  { path: '/inventory/assetmodelregister', name: 'AssetModelRegister', component: AssetModelRegister },
+  { path: '/inventory/assetmodellist', name: 'AssetModel', component: AssetModelList },
   { path: '/borrowrequest/borrowRequestList', name: 'Borrow Requests', component: BorrowRequestList },
   { path: '/borrowrequest/borrowRequestForm', name: 'Borrow Requests Form', component: BorrowRequestForm },
   { path: '/complaints/complaintsList', name: 'Complaints List', component: ComplaintsList },

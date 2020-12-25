@@ -58,19 +58,13 @@ export default [
     // },
 
     {
-        _tag: 'CSidebarNavDropdown',
+        _tag: 'CSidebarNavItem',
         name: 'Inventory',
-        route: '',
-        icon: 'cil-library',
-        _children: [
-            {
-                _tag: 'CSidebarNavItem',
-                name: 'Asset Models',
-                to: '/inventory/assetmodellist',
-                icon: 'cil-storage',
-            }
-        ],
+        to: '/inventory/assetmodellist',
+        icon: 'cil-storage',
     },
+
+
 
 ]
 
