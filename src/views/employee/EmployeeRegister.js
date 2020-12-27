@@ -22,6 +22,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
 
 import axios from "axios";
+import { connect } from 'react-redux';
+import EmployeeService from '../../api/EmployeeService';
 
 class EmployeeRegister extends Component {
 
@@ -77,27 +79,21 @@ class EmployeeRegister extends Component {
             email_address: this.state.email_address
         }
 
-        axios.post('http://localhost:8070/api/authenticate',
+        let headers = {
+            headers:
             {
-                "username": "admin",
-                "password": "admin",
-            }).then(response => {
-                this.setState({ token: response.data.accessToken });
-                console.log(this.state.token)
-                axios.post('http://localhost:8070/api/hr/employee/', employee,
-                    {
-                        headers:
-                        {
-                            'Authorization': 'Bearer ' + this.state.token,
-                            "Content-Type": "application/json",
-                        }
-                    }).then(response => {
-                        this.setState({ registeredEmployee: response.data })
-                        alert('Employee Created');
-                        console.log(response)
-                    })
-                    .catch(error => console.log(error.toString()))
-            }).catch(error => console.log(error.toString()));
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",
+            }
+        }
+
+        EmployeeService.createEmployee(employee, headers)
+            .then(response => {
+                alert(`Employee: ${this.state.full_name} is successfully registered!`)
+                this.setState({ registeredEmployee: response.data })
+            })
+            .catch(error => console.log(error.toString()))
+
     }
 
 
@@ -187,4 +183,8 @@ class EmployeeRegister extends Component {
     }
 }
 
-export default EmployeeRegister
+export default connect((store) => {
+    return {
+        token: store.token
+    }
+})(EmployeeRegister);
