@@ -20,7 +20,7 @@ import CIcon from '@coreui/icons-react'
 import Logo from '../../../assets/favicon.png'
 import './Login.css'
 
-import axios from "axios";
+//import axios from "axios";
 import {connect} from 'react-redux';
 import getToken from '../../../actions/authenticationAction'
 
