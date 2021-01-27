@@ -52,7 +52,7 @@ In case of any unexpected errors, please feel free to contact me on the followin
 
   <abdul.wahab@ut.ee>
 
-  <mirlindmurati777@gmail.com>
+  <murati@ut.ee>
 
   <zubairtnvr@outlook.com>
 
