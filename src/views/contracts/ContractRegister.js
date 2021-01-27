@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     CButton,
     CCard,
+    CTextarea,
     CCardBody,
     CCardFooter,
     CCardHeader,
@@ -9,24 +10,31 @@ import {
     CForm,
     CFormGroup,
     CInput,
-    CLabel,
-    CTextarea,
-    CSelect,
+    CLabel,   
 } from '@coreui/react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
+
+import {connect} from 'react-redux';
+import ContractService from '../../api/ContractService.js'
 
 class ContractRegister extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-        contractType: '',
-        contractDescription: '',
-        contractStatus: ''
+        token: '',
+        registeredContract: {},
+
+        id: '',
+        type: '',
+        description: '',
+        status: ''
         };
       }
+
+    //custom methods
 
     inputChangeHandler = (event) => {
         event.preventDefault();
@@ -37,83 +45,127 @@ class ContractRegister extends Component {
 
     resetInputHandler = () => {
         this.setState({
-            contractType: '',
-            contractDescription: '',
-            contractStatus: ''
+            type: '',
+            description: '',
+            status: ''
         })
+    }
+
+    createContractHandler = (event) => {
+        event.preventDefault();
+    
+        let contract = {            
+            type: this.state.type,
+            description: this.state.description,
+            status: this.state.status,
+        }
+
+        let headers =  {
+            headers:
+            {
+                'Authorization': 'Bearer ' + this.props.token,
+                "Content-Type": "application/json",                    
+            }}
+
+        console.log(this.props.token + " => HERE5 Register Contract");
+
+        ContractService.createContractHandler(contract, headers)
+        .then(response => {
+                alert(`Contract is successfully registered!`)
+                this.setState({registeredContract: response.data})                       
+                console.log(response)
+            })
+            .catch(error => console.log(error.toString()))          
     }
 
     render() {
         return (
             <CCard>
-                <CCardHeader>Register New Contract</CCardHeader>
-                <CCardBody>
-                    <CForm action="" method="post" onReset={this.resetInputHandler} encType="multipart/form-data" className="form-horizontal">
+            <CCardHeader>Register New Contract</CCardHeader>
+            <CCardBody>
+                <CForm onSubmit={this.createContractHandler} onReset={this.resetInputHandler} encType="multipart/form-data" className="form-horizontal">                
                     <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">Contract Type</CLabel>
-                            </CCol>
-                            {/* Contract type can be a dropdown */}
-                            <CCol xs="12" md="9">
-                                <CInput type="text" 
-                                value={this.state.inputName} 
-                                onChange={this.inputChangeHandler}
-                                id="contractType" 
-                                name="contractType" 
-                                placeholder="Contract Type" 
-                                autoComplete="name" /> 
-                                
-                            </CCol> 
-                            
-                        </CFormGroup>
-    
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="email-input">Contract Description</CLabel>
-                            </CCol>
+                        <CCol md="3">
+                            <CLabel htmlFor="email-input">Contract Type</CLabel>
+                        </CCol>
+                        <CCol xs="12" md="9">
+                            <CInput type="text" 
+                            value={this.state.type} 
+                            onChange={this.inputChangeHandler}
+                            id="type" 
+                            name="type" 
+                            placeholder="Enter Contract Type" 
+                            autoComplete="type" />                                 
+                        </CCol>                             
+                    </CFormGroup>                           
 
-                            <CCol xs="12" md="9">
+                    <CFormGroup row>
+                        <CCol md="3">
+                            <CLabel htmlFor="address-input">Description</CLabel>
+                        </CCol>
+                        <CCol xs="12" md="9">
                             <CTextarea
-                                name="contractDescription"
-                                id="contractDescription"
-                                value={this.state.inputAddress} 
+                                name="description"
+                                id="description"
+                                value={this.state.description} 
                                 onChange={this.inputChangeHandler}
                                 rows="2"
-                                placeholder="Contract Description"
-                            />
-                            </CCol>
-                        </CFormGroup>
-    
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="address-input">Contract Status</CLabel>
-                            </CCol>
-                            {/* Status can also be a dropdown */}
-                            <CCol xs="12" md="9">
-                                <CSelect custom name="contractStatus" id="contractStatus" 
-                                    value={this.state.inputAddress} 
-                                    onChange={this.inputChangeHandler}>
-                                    <option value="0">Select Status</option>
-                                    <option value="1">Active</option>
-                                    <option value="2">Blocked</option>
-                                    <option value="3">Expired</option>
-                                </CSelect>
-                            </CCol>
-                        </CFormGroup>
+                                placeholder="Enter Contract Description"
+                            />                            
+                        </CCol>
+                    </CFormGroup>
 
-                <CCardFooter >
-                    <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Register</CButton>
-                    <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} /> Reset </CButton> 
-                    <CButton style={{marginRight:"30px"}} to={"/contract/contractList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Go Back </CButton>
-                </CCardFooter>
-    
-                    </CForm>
-                </CCardBody>
-            </CCard>
+                    <CFormGroup row>
+                        <CCol md="3">
+                            <CLabel htmlFor="email-input">Status</CLabel>
+                        </CCol>
+                        <CCol xs="12" md="9">
+                            <CInput 
+                            type="text" 
+                            value={this.state.status} 
+                            onChange={this.inputChangeHandler}
+                            id="status" 
+                            name="status" 
+                            placeholder="Enter Contract Status" 
+                            autoComplete="status" />
+                        </CCol>
+                    </CFormGroup>
+
+            <CCardFooter> <br/> 
+                <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Register Contract</CButton>
+                <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} />Reset</CButton> 
+                <CButton style={{marginRight:"30px"}} to={"/contract/contractList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} />Back</CButton>
+            </CCardFooter> <hr/>
+                </CForm> 
+                <CCardHeader>The Created Contract is</CCardHeader>
+                <table className="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <th scope="row">{this.state.registeredContract.id}</th>
+                        <td>{this.state.registeredContract.type}</td>
+                        <td>{this.state.registeredContract.description}</td>
+                        <td>{this.state.registeredContract.status}</td>
+                        </tr>                          
+                    </tbody>
+                    </table>    
+            </CCardBody>               
+        </CCard>
         )
 
     }
     
 }
 
-export default ContractRegister
+export default connect((store) => {
+    return {
+      token: store.token
+    }
+  })(ContractRegister);
