@@ -22,7 +22,7 @@ import './Login.css'
 
 //import axios from "axios";
 import {connect} from 'react-redux';
-import getToken from '../../../actions/authenticationAction'
+import {getToken} from '../../../actions/authenticationAction'
 
 class Login extends Component {
   constructor(props) {
@@ -44,9 +44,10 @@ class Login extends Component {
 
   loginHandler = (event) => {
     event.preventDefault();
-    this.props.dispatch(getToken);
-
-    if(this.state.username === 'admin' && this.state.password === "admin123!") {      
+    this.props.dispatch(getToken(this.state.username, this.state.password));
+    console.log("Username: ", this.state.username);
+    console.log("Password: ", this.state.password);
+    if(this.state.username === 'admin' && this.state.password === "admin") {      
       this.props.history.push(`/dashboard`);                                                                   
     } else this.setState({isLoggedin: false});
 
