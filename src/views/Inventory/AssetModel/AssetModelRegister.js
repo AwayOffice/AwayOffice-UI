@@ -15,7 +15,8 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
-import axios from "axios";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 import { connect } from 'react-redux';
 import AssetModelService from '../../../api/AssetModelService.js'
@@ -26,8 +27,7 @@ class AssetModelRegister extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            token: '',
+        this.state = {            
             registeredAssetModel: {},
 
             id: '',
@@ -74,17 +74,44 @@ class AssetModelRegister extends Component {
             }
         }
 
-
-        AssetModelService.createAssetModelHandler(assetModel, headers)
+        if (!this.props.token) {
+            NotificationManager.warning("Authentication Error. Please Login Again");
+        } else if(!assetModel) {
+            NotificationManager.warning("Incorrect Request Body");
+        } else {
+            AssetModelService.createAssetModelHandler(assetModel, headers)
             .then(response => {
-                alert(`AssetModel: ${this.state.name} is successfully registered!`)
-                this.setState({ registeredAssetModel: response.data })
+                console.log(response);
+                if(response.status === 201) {
+                    NotificationManager.success(`${this.state.name} is successfully registered`, response.statusText)                                 
+                    this.setState({ registeredAssetModel: response.data })
+                } else {
+                    console.log(response);
+                    NotificationManager.warning("Please check the console for details", response.statusText)
+                }                
             })
-            .catch(error => console.log(error.toString()))
+            .catch(error => {
+                let errorMessage;
+                if (error.response) {
+                    errorMessage = "Some unknown error occurred!";
+                    this.setState({errorMessage: errorMessage})
+                } else if (error.request) {
+                    errorMessage = "The request was made but no response was received";
+                    this.setState({errorMessage: errorMessage})
+                    console.log(error.request);
+                } else {
+                    errorMessage = error.message;
+                    this.setState({errorMessage: errorMessage})
+                    console.log('Error', error.message);
+                }
+                NotificationManager.warning(errorMessage, 'OOPS...');   
+            })
+        }        
     }
 
     render() {
         return (
+            <div>
             <CCard>
                 <CCardHeader>Register New AssetModel</CCardHeader>
                 <CCardBody>
@@ -182,6 +209,8 @@ class AssetModelRegister extends Component {
                     </table>
                 </CCardBody>
             </CCard>
+            <NotificationContainer/>
+            </div>
         )
 
     }
