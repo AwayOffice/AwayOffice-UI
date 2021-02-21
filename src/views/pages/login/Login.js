@@ -20,7 +20,6 @@ import CIcon from '@coreui/icons-react'
 import Logo from '../../../assets/favicon.png'
 import './Login.css'
 
-//import axios from "axios";
 import {connect} from 'react-redux';
 import {getToken} from '../../../actions/authenticationAction'
 
@@ -29,7 +28,6 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      token: '',
       username: undefined,
       password: undefined,
       isLoggedin: undefined,
@@ -50,20 +48,7 @@ class Login extends Component {
     if(this.state.username === 'admin' && this.state.password === "admin") {      
       this.props.history.push(`/dashboard`);                                                                   
     } else this.setState({isLoggedin: false});
-
-    // console.log("Here 1")
-    // axios.post('http://localhost:8070/api/authenticate',
-    //         {
-    //             "username":"admin",
-    //             "password":"admin",
-    //         }).then(response =>{
-    //             this.setState({token: response.data.accessToken});
-    //             console.log(this.state.token);
-    //             if(this.state.token && this.state.username === 'admin' && this.state.password === "admin123!") {
-    //               this.props.history.push(`/dashboard`);                                                                   
-    //             } else this.setState({isLoggedin: false});                
-    //         }).catch(error => console.log(error.toString()));
-    }
+  }
  
     render () {
 
@@ -123,23 +108,12 @@ class Login extends Component {
                 </CCardGroup>
               </CCol>
             </CRow>
-          </CContainer>
-          {/* {
-            this.state.token !== '' ?
-            this.props.history.push("/dashboard")
-            : null                    
-          } */}
+          </CContainer>         
         </div>
 
       )
     }
 }
-
-// const mapStateToProps = (store) => {
-//   return {
-//     posts: store.posts
-//   }
-// }
 
 export default connect((store) => {
   return {
