@@ -21,7 +21,10 @@ import Logo from '../../../assets/favicon.png'
 import './Login.css'
 
 import {connect} from 'react-redux';
-import {getToken} from '../../../actions/authenticationAction'
+import {getToken} from '../../../actions/authenticationAction';
+
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class Login extends Component {
   constructor(props) {
@@ -45,9 +48,12 @@ class Login extends Component {
     this.props.dispatch(getToken(this.state.username, this.state.password));
     console.log("Username: ", this.state.username);
     console.log("Password: ", this.state.password);
-    if(this.state.username === 'admin' && this.state.password === "admin") {      
-      this.props.history.push(`/dashboard`);                                                                   
-    } else this.setState({isLoggedin: false});
+    if(this.state.username === 'admin' && this.state.password === "admin") {         
+      this.props.history.push(`/dashboard`);                                                                         
+    } else {
+      this.setState({isLoggedin: false});
+      NotificationManager.warning("Please enter correct username and password", 'OOPS...');  
+    } 
   }
  
     render () {
@@ -108,7 +114,8 @@ class Login extends Component {
                 </CCardGroup>
               </CCol>
             </CRow>
-          </CContainer>         
+          </CContainer>
+          <NotificationContainer/>         
         </div>
 
       )

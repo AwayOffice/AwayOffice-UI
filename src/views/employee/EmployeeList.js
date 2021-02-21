@@ -26,8 +26,6 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as All from '@fortawesome/free-solid-svg-icons'
 
-import axios from "axios";
-
 import { connect } from 'react-redux';
 import EmployeeService from '../../api/EmployeeService';
 
@@ -40,7 +38,7 @@ const getBadge = status => {
         default: return 'primary'
     }
 }
-const fields = ['full_name', 'registered', 'role', 'status']
+//const fields = ['full_name', 'registered', 'role', 'status']
 
 class EmployeeList extends Component {
 
@@ -48,8 +46,7 @@ class EmployeeList extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            token: '',
+        this.state = {        
             employees: [],
             employeeKeys: [],
 
