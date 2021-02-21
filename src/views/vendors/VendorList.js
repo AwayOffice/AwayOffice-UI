@@ -91,7 +91,7 @@ class VendorList extends Component {
                 console.log(response);
                 console.log(Object.keys(response.data._embedded.vendorDTOList[0]))
                 if(response.status === 200) {
-                    NotificationManager.success('Vendors are successfully fetched', response.statusText)             
+                    NotificationManager.success('Vendors Successfully Fetched', response.statusText)             
                     this.setState({
                         vendors: response.data._embedded.vendorDTOList,
                         vendorKeys: Object.keys(response.data._embedded.vendorDTOList[0]).filter(item => item !== '_links')
@@ -226,10 +226,7 @@ class VendorList extends Component {
         }              
     }
 
-    deleteVendorByID = (id) => {
-        if(id === null) {
-            return null;
-        }
+    deleteVendorByID = (id) => {       
         
         let headers = {
             headers:
