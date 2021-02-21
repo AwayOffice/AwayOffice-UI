@@ -83,7 +83,7 @@ class VendorRegister extends Component {
                     NotificationManager.success(`${this.state.name} is successfully registered`, response.statusText)             
                     //alert(`Vendor: ${this.state.name} is successfully registered!`);
                     this.setState({registeredVendor: response.data});                                           
-                }else {
+                } else {
                     console.log(response);
                     NotificationManager.warning("Please check the console for details", response.statusText)
                 }

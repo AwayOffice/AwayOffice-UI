@@ -140,9 +140,9 @@ class ContractRegister extends Component {
                         </CFormGroup>
 
                 <CCardFooter> <br/> 
-                    <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} />Register Contract</CButton>
-                    <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} />Reset</CButton> 
-                    <CButton style={{marginRight:"30px"}} to={"/contract/contractList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} />Back</CButton>
+                    <CButton style={{marginRight:"30px", marginLeft: "-20px"}} type="submit" size="md" color="success"><FontAwesomeIcon icon={All.faCheckCircle} /> Register Contract</CButton>
+                    <CButton style={{marginRight:"30px"}} type="reset" size="md" color="danger"> <FontAwesomeIcon icon={All.faCircle} /> Reset</CButton> 
+                    <CButton style={{marginRight:"30px"}} to={"/contract/contractList"} type="reset" size="md" color="primary"> <FontAwesomeIcon  icon={All.faArrowAltCircleLeft} /> Back</CButton>
                 </CCardFooter> <hr/>
                     </CForm> 
                     <CCardHeader>The Created Contract is</CCardHeader>

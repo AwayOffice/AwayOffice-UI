@@ -182,10 +182,11 @@ class VendorList extends Component {
 
         let headers = {
             headers:
-        {
+           {
             'Authorization': 'Bearer ' + this.props.token,
             "Content-Type": "application/json",                        
-        }}
+           }
+        }
 
         if (!this.props.token) {
             NotificationManager.warning("Authentication Error. Please Login Again");
